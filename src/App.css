@@ -1,8 +1,109 @@
 .App {
-  text-align: center;
+  width: 100vw;
+  /* height: 100vh; */
+  
+
+}
+.setup{
+  display: flex;
+  flex-direction: row;
 }
 
-.App-logo {
+body {
+  margin: 0;
+  padding: 0;
+}
+.sidebar {
+  /* height: 100vh; */
+  width: 20%;
+  background-color: rgb(45, 45, 45);
+ 
+
+}
+body {
+  /* background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  align-items: center;
+  height: 100vh; */
+}
+
+.box {
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
+}
+
+.g-btn {
+  width: 100% !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-size: 15px !important;
+}
+.g-btn > div,
+.g-btn > div > svg {
+  width: 40px !important;
+  height: 38px !important;
+}
+.class1{
+  margin-top: 70px;
+}
+.Icon{
+  filter: brightness(0.5);
+}
+.Navtext{
+  color: rgb(228, 209, 209);
+  text-decoration: none;
+  font-size: large;
+
+}
+.Navtext:hover{
+  color: rgb(215, 240, 240);
+ font-size: larger;
+
+}
+
+.Navhover:hover{
+  
+ background-color: rgb(209, 228, 229);
+  cursor: pointer;
+  color: black;
+  
+  
+
+}
+.Navhover{
+  margin-left: 25px;
+  padding: 0;
+  height: 40px;
+}
+.border{
+  border: 10px solid black;
+  border-radius: 30px;
+}
+
+.imagesize{
+  height: 60px;
+  width: 60px;
+  border-radius: 100px;
+}
+.customcard{
+  width: 18rem;
+  height: 150px;
+  margin-top: 20px;
+}
+.cards1{
+  background-color: #e6f0f3;
+}
+
+.imageicon{
+  height: 15px;
+  width: 15px;
+  margin-right: 1px;
+}
+
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -36,3 +137,18 @@
     transform: rotate(360deg);
   }
 }
+body {
+  background-color: #eee
+}
+
+.nav-link:hover {
+  background-color: #525252 !important
+}
+
+.nav-link .fa {
+  transition: all 1s
+}
+
+.nav-link:hover .fa {
+  transform: rotate(360deg)
+} */
