@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -30,10 +31,15 @@ export function UserAuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log("Auth", currentuser);
-      setUser(currentuser);
+      // console.log("Auth", currentuser);
+      // console.log(currentuser.accessToken);
+      localStorage.setItem('token',currentuser.accessToken);
+      // console.log("Added in lc");
+      // const x = localStorage.getItem('token');
+      // console.log(x);
+      setUser(currentuser.accessToken);
     });
-
+  
     return () => {
       unsubscribe();
     };

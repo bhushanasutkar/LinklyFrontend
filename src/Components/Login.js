@@ -43,7 +43,7 @@ const Login = () => {
                     </div>
                     <h6 className="text-secondary text-center py-2">THE BACKLINK MARETPLACE</h6>
                 </div>
-                <h2 className="mb-3 text-center">  Logiin to Linkly</h2>
+                <h2 className="mb-3 text-center">  Login to Linkly</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">

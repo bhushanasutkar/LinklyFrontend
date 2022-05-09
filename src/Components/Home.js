@@ -16,12 +16,12 @@ const Home = () => {
   };
   return (
     <>
-      <div className="p-4 box mt-3 text-center">
+      <div className="p-4 box mt-2 mx-1 text-center text-bold">
         Welcome to LINKLY <br />
         {user && user.email}
       </div>
-      <div className="d-grid gap-2">
-        <Button variant="primary" onClick={handleLogout}>
+      <div className="d-grid gap-2 mx-1">
+        <Button variant="primary" style={{height: 'maxContent',margin:'auto'}} onClick={handleLogout}>
           Log out
         </Button>
       </div>

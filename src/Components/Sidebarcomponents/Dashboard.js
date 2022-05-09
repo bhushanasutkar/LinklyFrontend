@@ -12,7 +12,7 @@ const Dashboard = () => {
                 <div className="container d-flex justify-content-end" style={{ height: '100px' }}>
                    <Home/>
 
-                    <img src="images.jfif" class="img-rounded imagesize mx-2" alt="Cinque Terre"></img>
+                    <img src="images.jfif" class="img-rounded imagesize mx-2" style={{margin:'auto'}} alt="Cinque Terre"></img>
                 </div>
             </div>
             <div className="container d-flex flex-row cards1 justify-content-around">
