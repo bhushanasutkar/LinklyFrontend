@@ -13,7 +13,7 @@ const Details = (props) => {
     console.log(firsthide);
     if (firsthide) {
       const Archive = 0;
-      const response = await fetch("http://localhost:8000/v1/sample//link-vault/link_status", {
+      const response = await fetch("https://linkly-backend-stg.herokuapp.com/v1/sample/link-vault/link_status", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const Details = (props) => {
     }
 
     else {
-      const response = await fetch("http://localhost:8000/v1/sample//link-vault/linkstatushide", {
+      const response = await fetch("https://linkly-backend-stg.herokuapp.com/v1/sample/link-vault/linkstatushide", {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const Details = (props) => {
     console.log(firstaccept);
     if (firstaccept) {
       const Archive = 1;
-      const response = await fetch("http://localhost:8000/v1/sample//link-vault/link_status", {
+      const response = await fetch("https://linkly-backend-stg.herokuapp.com/v1/sample/link-vault/link_status", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const Details = (props) => {
       }
     }
     else {
-      const response = await fetch("http://localhost:8000/v1/sample//link-vault/linkstatusaccept", {
+      const response = await fetch("https://linkly-backend-stg.herokuapp.com/v1/sample/link-vault/linkstatusaccept", {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

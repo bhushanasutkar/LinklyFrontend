@@ -4,7 +4,7 @@ import React from 'react'
 import AcceptedLinks from "../Components/AcceptedLinks";
 
 const Linkstate = (props) => {
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
   const id = 1;
   const [Link, setLink] = useState([]);
   const [acceptedLinks, setacceptedLinks] = useState([]);
