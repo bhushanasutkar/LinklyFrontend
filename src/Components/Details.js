@@ -4,13 +4,14 @@ const Details = (props) => {
   const { link } = props;
   const linkid = link.Link_Id;
   const UserId = 1;
+  const host = "https://linkly-backend-stg.herokuapp.com";
 
   const handlehide = async (e) => {
     e.preventDefault();
 
     const Archive = 0;
     const response = await fetch(
-      "http://localhost:8000/v1/userlink/link_status",
+      `${host}/v1/userlink/link_status`,
       {
         method: "POST",
         headers: {
@@ -28,7 +29,7 @@ const Details = (props) => {
     e.preventDefault();
     const Archive = 1;
     const response = await fetch(
-      "http://localhost:8000/v1/userlink/link_status",
+      `${host}/v1/userlink/link_status`,
       {
         method: "POST",
         headers: {

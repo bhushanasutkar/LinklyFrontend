@@ -3,12 +3,12 @@ import LinkContext from "./Linkcontext";
 import React from 'react'
 
 const Linkstate = (props) => {
-  // const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
   // const id = 1;
   const [Link, setLink] = useState([]);
   const [acceptedLinks, setacceptedLinks] = useState([]);
   const getallLinks = async () => {
-    const response = await fetch(`http://localhost:8000/v1/userlink/1`, {
+    const response = await fetch(`${host}/v1/userlink/1`, {
       method: 'GET',
 
       headers: {
@@ -23,7 +23,7 @@ const Linkstate = (props) => {
   
   }
   const getallacceptedLinks = async () => {
-    const response = await fetch(`http://localhost:8000/v1/userlink/accepted/1`, {
+    const response = await fetch(`${host}/v1/userlink/accepted/1`, {
       method: 'GET',
 
       headers: {
