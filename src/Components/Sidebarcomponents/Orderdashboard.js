@@ -10,7 +10,6 @@ const Orderdashboard = () => {
     <p className='text-end font-weight-bold'style={{margin:'0',fontWeight: 700}}>Flickzee</p>
     <p className='text-end'>flickzee.com</p>
     </div>
- 
     <img src="images.jfif" class="img-rounded imagesize mx-2" alt="Cinque Terre"></img>
     </div>
     </div>
