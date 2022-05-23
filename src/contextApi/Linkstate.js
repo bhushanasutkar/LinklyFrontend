@@ -1,15 +1,14 @@
 import { useState } from "react";
 import LinkContext from "./Linkcontext";
 import React from 'react'
-import AcceptedLinks from "../Components/AcceptedLinks";
 
 const Linkstate = (props) => {
-  const host = "http://localhost:8000";
-  const id = 1;
+  // const host = "http://localhost:8000";
+  // const id = 1;
   const [Link, setLink] = useState([]);
   const [acceptedLinks, setacceptedLinks] = useState([]);
   const getallLinks = async () => {
-    const response = await fetch(`${host}/v1/sample/userlinks/${id}`, {
+    const response = await fetch(`http://localhost:8000/v1/userlink/1`, {
       method: 'GET',
 
       headers: {
@@ -20,16 +19,11 @@ const Linkstate = (props) => {
 
     });
     const json = await response.json();
-    setLink(json);
-    // console.log("Printing Links");
-    // console.log(Link);
-    Link.forEach(element => {
-      console.log(element.Name);
-    });
-
+    setLink(json.Links);
+  
   }
   const getallacceptedLinks = async () => {
-    const response = await fetch(`${host}/v1/sample/userlinks/accepted/${id}`, {
+    const response = await fetch(`http://localhost:8000/v1/userlink/accepted/1`, {
       method: 'GET',
 
       headers: {
@@ -39,17 +33,8 @@ const Linkstate = (props) => {
       }
 
     });
-    const json = await response.json();
-    console.log("1");
-    console.log(json);
-    console.log("2");
-    setacceptedLinks(json);
-    console.log("Printing Accepted Links");
-   
-    console.log(acceptedLinks);
-    // acceptedLinks.forEach(element => {
-    //    console.log(element);
-    // });
+    const data = await response.json();
+    setacceptedLinks(data.AcceptedLinks);
 
   }
 

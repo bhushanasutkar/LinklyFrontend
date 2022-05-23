@@ -1,15 +1,19 @@
 import React from 'react'
 import Details from './Details';
-import { useContext, useState } from 'react';
-import Linkcontext from '../contextApi/Linkcontext';
+import { useState } from 'react';
+
 
 const Linkcomponent = (props) => {
 
-  const { Link, getallLinks } = useContext(Linkcontext);
+
   const { link } = props;
+  const linkid = link.Link_Id;
   const [value, setvalue] = useState(false)
+  const [icon, seticon] = useState('');
+
+
   const viewdetails = () => {
-    console.log(value);
+    // console.log(value);
     if (value === true) {
       setvalue(false);
     }
@@ -17,17 +21,69 @@ const Linkcomponent = (props) => {
       setvalue(true);
     }
   }
+  const geticon = async () => {
+    const imagename = link.Name;
+    const response = await fetch(
+      "http://localhost:8000/v1/sample/linkly/icon/database",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ imagename }),
+      }
+    );
+    const data = await response.json();
+    if (data[0].Icon!=null) {
+      seticon(data[0].Icon);
+    } else {
+      const clearbitimageurl = `https://logo.clearbit.com/${imagename}.com`
+      const clearbitresponse = await fetch(clearbitimageurl);
+      if (clearbitresponse) {
+        const imageurl=clearbitresponse
+        const uploadedimageurl = await fetch(
+          "http://localhost:8000/v1/sample/linkly/icon",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ imageurl, imagename }),
+          }
+        );
+        seticon(uploadedimageurl);
+      }
+      else{
+         const imageurl=`https://api.ritekit.com/v2/company-insights/logo?client_id=60c077eee8768fcc581ebbb780d3aee62acbaa2903e4&domain=${imagename}.com&generateFallbackLogo=0&squareLogoSize=256&squareLogoBackground=original`
+         const uploadedimageurl = await fetch(
+          "http://localhost:8000/v1/sample/linkly/icon",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: localStorage.getItem("token"),
+            },
+            body: JSON.stringify({ imageurl, imagename }),
+          }
+        );
+        seticon(uploadedimageurl);
+      }
+      
+    }
+
+  };
   return (
     <>
 
-      <div class="container-fluid mx-10 my-5">
-        <div class="row  ">
-          <div class="col-sm container-md  justify-content-center align-items-top   d-flex flex-row">
-            <img src="microsoft.png" class="imageicon " style={{ marginTop: '6px' }} alt=""></img>
-            <div className='px-2'>{link.Name}</div>
-            <img src="new_window.svg" class="imageicon " style={{ marginTop: '6px' }} on alt="NA" />
+      <div id={linkid} className="container-fluid mx-10 my-5">
+        <div className="row  ">
+          <div className="col-sm container-  justify-content-center align-items-top   d-flex flex-row">
+            <div className='' style={{ width: '73px' }}>{link.Name}</div>
+            <img src="new_window.svg" className="imageicon " style={{ marginTop: '5px' }} on alt="NA" />
           </div>
-          <div class=" container d-flex flex-row text-center col-sm">
+          <div className=" container d-flex flex-row text-center col-sm">
             <div>{link.Rel_Attribute}</div>
             <img src={(link.Self_Publish === 'YES') ? 'instant_publish.svg ' : 'not_instant_publish.svg'} className='px-1' style={{ marginTop: '2px', height: 'fit-content' }} alt="NA" />
             <img src={(link.Link_Type === 'Image') ? 'image_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
@@ -37,31 +93,28 @@ const Linkcomponent = (props) => {
             <img src={(link.Link_Type === 'Reference') ? 'reference_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
             <img src={(link.Google_Indexed === 'YES') ? 'indexed.svg ' : 'noindexed.svg'} className='px-1' style={{ marginTop: '2px', height: 'fit-content' }} alt="NA" />
           </div>
-          <div class="text-center col-sm">
-            #{link.Ahrefs_Rating}
+          <div className="text-center col-sm">
+            {link.content_type}
           </div>
-          <div class="text-center col-sm">
+          <div className="text-center col-sm">
             {link.Domain_Authority}
           </div>
-          <div class=" text-center col-sm">
+          <div className=" text-center col-sm">
             {link.Spam_Rating}%
 
           </div>
-          <div class="text-center col-sm">
+          <div className="text-center col-sm">
             {link.Category}
           </div>
-          <div class="text-center col-sm">
-            <div className='border text-center'>{link.Work_Required}</div>
+          <div className="text-center col-sm">
+            <div className='boorder text-center'>{link.Work_Required}</div>
           </div>
-          <div class="text-center col-sm">
+          <div className="text-center col-sm">
             <p className='text-center'>{link.Cost_usd}$</p>
           </div>
-          <div class="text-center " style={{ width: '130px' }}>
-            <button type="button" onClick={viewdetails} class="btn btn-info">View Detail </button>
+          <div className="text-center " style={{ width: '130px' }}>
+            <button type="button" onClick={viewdetails} className="btn btn-info">View Detail </button>
           </div>
-          {/* <div class="col-sm">
-            <button type="button" onClick={getallLinks} class="btn btn-info">Get all Links</button>
-          </div> */}
         </div>
 
         {/* here dropsown starts */}
@@ -77,3 +130,4 @@ const Linkcomponent = (props) => {
 }
 
 export default Linkcomponent
+
