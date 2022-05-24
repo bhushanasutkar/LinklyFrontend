@@ -1,10 +1,15 @@
 import React from 'react'
-
+import { useState } from 'react';
 import { Link } from "react-router-dom";
-
+import {Popupfeedback,Popuplinkexchange} from './Popup';
 const AcceptedLinks = (props) => {
 
   const { acceptedlink } = props;
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  }
 
 
   return (
@@ -33,7 +38,7 @@ const AcceptedLinks = (props) => {
           </div>
           <div className="container my-3 d-flex flex-column">
             <div className="container justify-content-center d-flex flex-row mt-2 ">
-              <div className='mr-2'>{(acceptedlink.Rel_Attribute === 'dofollow')?'DF':'NF'}</div>
+              <div className='mr-2'>{(acceptedlink.Rel_Attribute === 'dofollow') ? 'DF' : 'NF'}</div>
               <img src={(acceptedlink.Self_Publish === 'YES') ? 'instant_publish.svg ' : 'not_instant_publish.svg'} className='px-1' style={{ marginTop: '2px', height: 'fit-content' }} alt="NA" />
               <img src={(acceptedlink.Link_Type === 'Image') ? 'image_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
               <img src={(acceptedlink.Link_Type === 'Comment') ? 'comment_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
@@ -69,7 +74,7 @@ const AcceptedLinks = (props) => {
               <div className='py-2' >Content Guidelines</div>
               <a href={`https://${acceptedlink.Content_Guidelines}`} rel="noopener noreferrer" target="_blank">
 
-              <img src="new_window.svg"  className="imageicon mr-3 my-2" style={{ marginTop: '4px', marginRight: '20px', cursor: 'pointer' }} on alt="NA" />
+                <img src="new_window.svg" className="imageicon mr-3 my-2" style={{ marginTop: '4px', marginRight: '20px', cursor: 'pointer' }} on alt="NA" />
               </a>
             </div>
           </div>
@@ -81,7 +86,7 @@ const AcceptedLinks = (props) => {
           <div className="container my-3 d-flex flex-column justify-content-between ">
             <button type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>Submit Here</button>
             <div>
-              <div className='  ' >Current Status</div>
+              <div className="" >Current Status</div>
               <div class="btn-group  " style={{ width: '-webkit-fill-available' }} role="group">
                 <button id="btnGroupDrop1" type="button" class="one btn btn-secondary dropdown-toggle" style={{ backgroundColor: '#e6f0f3', color: 'black' }} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Status
@@ -93,7 +98,19 @@ const AcceptedLinks = (props) => {
               </div>
             </div>
 
-            <div style={{ marginLeft: 'auto', cursor: 'pointer' }}><u>Feedback</u></div>
+            <div style={{ marginLeft: 'auto', cursor: 'pointer' }}>
+            <div>
+              <input
+                type="button"
+                value="Feedback"
+                onClick={togglePopup}
+              />
+            </div>
+
+              {isOpen && <Popuplinkexchange
+                handleClose={togglePopup} acceptedlinkname={acceptedlink.Name}
+              />}
+            </div>
           </div>
 
         </div>
