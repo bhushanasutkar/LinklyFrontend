@@ -13,7 +13,7 @@ const Renderacceptedlink = () => {
   return (
     <div>
       {acceptedLinks.map((element) => {
-        return <AcceptedLinks key={element.Cost_usd} acceptedlink={element} />;
+        return <AcceptedLinks key={element.Url} acceptedlink={element} />;
       })}
     </div>
   );

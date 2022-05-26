@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { useUserAuth } from "../contextApi/useAuthContext"
+import { useUserAuth } from "../contextApi/useAuthContext";
 
 const Home = () => {
   const { logOut, user } = useUserAuth();
@@ -9,10 +9,9 @@ const Home = () => {
   const handleLogout = async () => {
     try {
       await logOut();
+      localStorage.clear();
       navigate("/");
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
   return (
     <>
@@ -21,7 +20,11 @@ const Home = () => {
         {user && user.email}
       </div>
       <div className="d-grid gap-2 mx-1">
-        <Button variant="primary" style={{height: 'maxContent',margin:'auto'}} onClick={handleLogout}>
+        <Button
+          variant="primary"
+          style={{ height: "maxContent", margin: "auto" }}
+          onClick={handleLogout}
+        >
           Log out
         </Button>
       </div>

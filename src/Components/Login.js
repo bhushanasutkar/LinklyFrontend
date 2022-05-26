@@ -4,9 +4,18 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../contextApi/useAuthContext";
+import { useContext } from "react";
+import Linkcontext from "../contextApi/Linkcontext";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth } from "../firebase";
+let userdetailid='';
 
 const Login = () => {
   const { googleSignIn, logIn } = useUserAuth();
+  const { Userid, setUser } = useContext(Linkcontext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,7 +26,8 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate("/home");
+      
+      navigate("/backlinkvault");
     } catch (err) {
       setError(err.message);
     }
@@ -26,8 +36,13 @@ const Login = () => {
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn();
-      navigate("/backlinkvault");
+      const googleAuthProvider = new GoogleAuthProvider();
+      const userdetail=await signInWithPopup(auth, googleAuthProvider);
+      localStorage.setItem('userid',userdetail.user.uid);
+      userdetailid=userdetail.user.uid
+      document.cookie=userdetail.user.uid;
+      navigate("/dashboard");
+     
     } catch (error) {}
   };
 
@@ -68,4 +83,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export {
+  Login,
+  userdetailid,
+}

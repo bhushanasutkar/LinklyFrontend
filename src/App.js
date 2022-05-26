@@ -12,7 +12,7 @@ import Backlinkmonitor from './Components/Sidebarcomponents/Backlinkmonitor';
 import Linkgiver from './Components/Sidebarcomponents/Linkgiver';
 
 import Linkstate from './contextApi/Linkstate';
-import Login from './Components/Login';
+import {Login} from './Components/Login';
 
 import Signup from './Components/Signup';
 import ProtectedRoute from './Components/ProtectedRoute';

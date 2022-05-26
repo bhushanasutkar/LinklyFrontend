@@ -118,12 +118,12 @@ body {
   border-radius:10px;
   position: relative;
   width: 35%;
-  height: 40rem;
-  max-height: 70vh;
-  margin-top: calc(100vh - 85vh - 10px);
+  height: 50rem;
+  max-height: 90vh;
+  margin-top: calc(100vh - 95vh - 10px);
   margin-left: 41rem;
   background: #fff;
-  border: 1px solid #999;
+  border: 0px solid #999;
   overflow: auto;
 }
 

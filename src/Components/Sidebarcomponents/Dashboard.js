@@ -1,7 +1,12 @@
 import React from 'react'
 import Home from '../Home';
+import { useContext } from "react";
+import Linkcontext from "../../contextApi/Linkcontext";
+
 const Dashboard = () => {
 
+    const { Link, getallLinks } = useContext(Linkcontext);
+    getallLinks();
 
     return (
         <>

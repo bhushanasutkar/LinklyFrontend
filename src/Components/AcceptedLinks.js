@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { Link } from "react-router-dom";
-import {Popupfeedback,Popuplinkexchange} from './Popup';
+import { Feedbackpopup, Linkexhangepopup,Metadatapopup,Guestblogpopup,Linkinsertionpopup,Savelogindetailpopup } from './Popups';
 const AcceptedLinks = (props) => {
 
   const { acceptedlink } = props;
@@ -9,6 +9,7 @@ const AcceptedLinks = (props) => {
  
   const togglePopup = () => {
     setIsOpen(!isOpen);
+    console.log(acceptedlink.Name)
   }
 
 
@@ -21,7 +22,7 @@ const AcceptedLinks = (props) => {
           <div className="container  my-3  d-flex flex-column">
             <div className="container mt-2 d-flex flex-row">
               <img src="https://logo.clearbit.com/microsoft.com" className="imageicon " style={{ marginTop: '4px' }} alt="NA"></img>
-              <div className='px-2' style={{ width: '' }}>{acceptedlink.Name}</div>
+              <div className='' style={{ width: '' }}>{acceptedlink.Name}</div>
               <img src="new_window.svg" className="imageicon " style={{ marginTop: '4px', cursor: 'pointer' }} on alt="NA" />
             </div>
             <div className=" d-flex flex-row mt-4 ">
@@ -107,7 +108,7 @@ const AcceptedLinks = (props) => {
               />
             </div>
 
-              {isOpen && <Popuplinkexchange
+              {isOpen && <Feedbackpopup
                 handleClose={togglePopup} acceptedlinkname={acceptedlink.Name}
               />}
             </div>
