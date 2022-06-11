@@ -3,10 +3,10 @@ import React from "react";
 import { useContext } from "react";
 import Linkcontext from "../contextApi/Linkcontext";
 import { useState } from "react";
-
+// const host = "https://linkly-backend-stg.herokuapp.com";
 const Feedbackpopup = props => {
-  // const host = "https://linkly-backend-stg.herokuapp.com";
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "http://localhost:8000";
   const UserId = localStorage.getItem('userid');
   const Linkid= props.linkid
   // const Linkid=1;
@@ -153,9 +153,7 @@ const Metadatapopup = props => {
 };
 
 const Linkexhangepopup = props => {
-  // const host = "https://linkly-backend-stg.herokuapp.com";
-
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
   const Linkid= props.linkid
@@ -179,14 +177,16 @@ const Linkexhangepopup = props => {
 
   return (
     <div className="popup-box">
-      <div className="boxx" style={{width: '35%', height: '35rem',marginLeft: '40rem', marginTop: 'calc(100vh - 90vh - 0px)'}}>
+      <div className="boxx" style={{width: '37%', height: '43rem',marginLeft: '40rem', marginTop: 'calc(100vh - 97vh - 0px)'}}>
         <div className="container d-flex flex-row justify-content-between" style={{ backgroundColor: '#363740', fontSize: '1.6rem' }}>
           <div className="text-light my-4">Request for Link Exchange</div>
           <span className="text-muted px-3 pb-2 " style={{ fontSize: 'xxx-large' }} onClick={props.handleClose}>x</span>
         </div>
         <div className=" mb-5 mt-4 container" style={{ fontWeight: '500' }}>
-          <div className="px-2 text-center">Something isn’t right with the information we have shown ? </div>
-          <div className="px-2 text-center">Let us know and we will fix it in 24 hours.</div>
+          <div className="px-2 text-center">Fill the following details to send request for a link exchange.
+2-way link exchange means. You link to Site A from Page A1, Site A links to you from Page P1
+3-way link exchange means. You Link to Site A, Site B links to you </div>
+          {/* <div className="px-2 text-center">Let us know and we will fix it in 24 hours.</div> */}
         </div>
         <div className="container" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
           <div className="px-5  ">
@@ -214,9 +214,9 @@ const Linkexhangepopup = props => {
 };
 
 const Guestblogpopup = props => {
-   // const host = "https://linkly-backend-stg.herokuapp.com";
+   const host = "https://linkly-backend-stg.herokuapp.com";
    const {acceptedlink}=props;
-   const host = "http://localhost:8000";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -273,8 +273,8 @@ const Guestblogpopup = props => {
 
 const Linkinsertionpopup = props => {
   const {acceptedlink}=props;
-   // const host = "https://linkly-backend-stg.herokuapp.com";
-   const host = "http://localhost:8000";
+   const host = "https://linkly-backend-stg.herokuapp.com";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid=1;
@@ -331,7 +331,7 @@ const Linkinsertionpopup = props => {
   );
 };
 const Addlinktomonitorpopup = props => {
-   // const host = "https://linkly-backend-stg.herokuapp.com";
+   const host = "https://linkly-backend-stg.herokuapp.com";
  
 const {Orderidlist} = useContext(Linkcontext);
 console.log('consolling');
@@ -342,7 +342,7 @@ if( Orderidlist.length>0 &&  Orderidlist[0].order_id!=="Select OrderID"){
 Orderidlist.unshift(obj);
 }
 
-   const host = "http://localhost:8000";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -464,8 +464,8 @@ We check every week to make sure the ‘Source URLs’ have your ‘Target URL�
   );
 };
 const Publishlinkpopup = props => {
-   // const host = "https://linkly-backend-stg.herokuapp.com";
-   const host = "http://localhost:8000";
+   const host = "https://linkly-backend-stg.herokuapp.com";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -537,8 +537,8 @@ We check every week to make sure your ‘Source URLs’ have the ‘Target URL�
   );
 };
 const Requestreworkpopup = props => {
-   // const host = "https://linkly-backend-stg.herokuapp.com";
-   const host = "http://localhost:8000";
+   const host = "https://linkly-backend-stg.herokuapp.com";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -620,8 +620,8 @@ However, for everyone’s benefit, we would suggest to do small changes at your 
   );
 };
 const Rejectguestblogpopup = props => {
-   // const host = "https://linkly-backend-stg.herokuapp.com";
-   const host = "http://localhost:8000";
+   const host = "https://linkly-backend-stg.herokuapp.com";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -705,8 +705,8 @@ const Rejectguestblogpopup = props => {
   );
 };
 const Acceptlinkexchangepopup = props => {
-  // const host = "https://linkly-backend-stg.herokuapp.com";
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "http://localhost:8000";
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
   const Linkid= props.linkid
@@ -766,8 +766,8 @@ const Savelogindetailpopup = props => {
   };
 
 
-   // const host = "https://linkly-backend-stg.herokuapp.com";
-   const host = "http://localhost:8000";
+   const host = "https://linkly-backend-stg.herokuapp.com";
+  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid

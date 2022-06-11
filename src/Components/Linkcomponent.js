@@ -80,7 +80,7 @@ const Linkcomponent = (props) => {
     <>
 
       <div id={linkid} className=" my-5">
-        <div className="row mx-0 px-2">
+        <div className="row mx-0 px-2" style={{marginBottom: '13px'}}>
           <div className="col-sm container-  justify-content-center align-items-top   d-flex flex-row">
             <div className='pr-1' style={{ width: '113px' }}>{link.Name}</div>
             <a href={`https://${link.Url}`} rel="noopener noreferrer" target="_blank">
@@ -169,7 +169,7 @@ const Linkcomponent = (props) => {
           {value && <Details link={link} />}
 
         </div>
-        <hr></hr>
+        <hr style={{marginBottom:'1px', marginTop:'0px'}}></hr>
       </div>
     </>
 

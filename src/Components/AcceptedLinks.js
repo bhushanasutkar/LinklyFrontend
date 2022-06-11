@@ -49,7 +49,9 @@ const AcceptedLinks = (props) => {
     var statusvalue = document.getElementById("statusvalueid").value;
     // sdelect.options[sdelect.selectedIndex].setAttribute('selected', true);
     console.log(statusvalue);
-    const host = "http://localhost:8000";
+    // const host = "http://localhost:8000";
+const host = "https://linkly-backend-stg.herokuapp.com";
+
     const UserId = localStorage.getItem('userid');
     // const Linkid= props.Linkid
     const Linkid = acceptedlink.Link_Id;

@@ -5,8 +5,8 @@ import React from "react";
 
 
 const Linkstate = (props) => {
-  // const host = "https://linkly-backend-stg.herokuapp.com";
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "http://localhost:8000";
   // let x = document.cookie;
   // const userid = x;
   // console.log("Printing Coookie");

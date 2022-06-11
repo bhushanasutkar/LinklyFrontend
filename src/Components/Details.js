@@ -16,8 +16,8 @@ const Details = (props) => {
   // const UserId = userdetailid;
   // console.log(UserId);
   const email = "bhushanasutkar0002@gmail.com";
-  // const host = "https://linkly-backend-stg.herokuapp.com";
-  const host = "http://localhost:8000";
+  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "http://localhost:8000";
   const handlehide = async (e) => {
     e.preventDefault();
 
@@ -64,7 +64,7 @@ const Details = (props) => {
           width: "700px",
           height: "3px",
           marginLeft: "118px",
-          marginTop: "2px",
+          marginTop: "20px",
         }}
       />
       <div>
@@ -74,19 +74,19 @@ const Details = (props) => {
             style={{ width: "810px" }}
           >
             <div className="container d-flex flex-column">
-              <div className='tooltip-wrap-desc'>
+              { link.Description && <div className='tooltip-wrap-desc'>
                 <p >
                   <strong> Description: </strong> {(link.Description.length > 95) ? link.Description.substring(0, 95) + "..." : link.Description}
 
                 </p>
                 {(link.Description.length > 95) && <div className='tooltip-content-desc' >{link.Description}</div>}
-              </div>
+              </div>}
               <p>
                 <strong> Language: </strong> {link.Main_Language}
               </p>
-              <p>
+              {link.primary_category && <p>
                 <strong>Categories :</strong> {link.primary_category}
-              </p>
+              </p>}
             </div>
             <div
               className="container mx-0  d-flex flex-column  "
@@ -97,15 +97,15 @@ const Details = (props) => {
                   Ahrefs DR:<strong> {link.Ahrefs_Rating}</strong>{" "}
                 </p>
               )}
-              <p style={{ marginLeft: "20px" }}>
+              { link.organic_keyword && <p style={{ marginLeft: "20px" }}>
                 Organic Keywords :<strong>{link.organic_keyword}</strong>
-              </p>
-              <p style={{ marginLeft: "20px" }}>
+              </p>}
+              {link.no_of_backlinks && <p style={{ marginLeft: "20px" }}>
                 No of backlins :<strong>{link.no_of_backlinks}</strong>
-              </p>
-              <p style={{ marginLeft: "20px" }}>
+              </p>}
+              {link.linking_domain && <p style={{ marginLeft: "20px" }}>
                 Linking Domain :<strong>{link.linking_domain}</strong>
-              </p>
+              </p>}
               {link.Alexa_Rank > 0 && (
                 <p style={{ marginLeft: "20px" }}>
                   Alexa Rank :

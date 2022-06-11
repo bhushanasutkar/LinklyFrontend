@@ -8,7 +8,9 @@ import { useEffect } from "react";
 const Monitorlink = () => {
   const UserId = localStorage.getItem('userid');
   const {Orderidlist, setOrderidlist} = useContext(Linkcontext);
-  const host = "http://localhost:8000";
+  // const host = "http://localhost:8000";
+const host = "https://linkly-backend-stg.herokuapp.com";
+
   const [isOpenAcceplink, setIsOpenAcceplink] = useState(false);
   const toggleAddlink = async () => {
     setIsOpenAcceplink(!isOpenAcceplink);
@@ -34,7 +36,7 @@ const Monitorlink = () => {
   useEffect(() => {
     setuserid();
     getallmonitoredlink();
-    console.log(Monitooredlink);
+    console.log(Monitooredlink.length);
   
  
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,7 +99,7 @@ const Monitorlink = () => {
             ></span>
             <div className="card-body">
               <h4 className="card-title text-muted text-center">Total Links</h4>
-              <h1 className="text-center mt-3">64</h1>
+              <h1 className="text-center mt-3">{Monitooredlink.length}</h1>
             </div>
           </div>
           <div
@@ -108,7 +110,7 @@ const Monitorlink = () => {
               <h4 className=" py-1 my-1 card-title text-muted text-center">
                 Success
               </h4>
-              <h1 className="text-center mt-3">64</h1>
+              <h1 className="text-center mt-3">{Monitooredlink.length}</h1>
             </div>
           </div>
           <div
