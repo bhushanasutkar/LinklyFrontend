@@ -20,6 +20,9 @@ const Backlinkvault = () => {
   return (
     <div>
      <Accountsection heading={'Backlink Vault'}/>
+     <div className="container d-flex flex-row mt-3 justify-content-end ">
+          <h5 className='pt-2' style={{    width: 'inherit',marginLeft: '40px'}}><strong>Grab your backlinks now !</strong></h5>
+        </div>
      <Links></Links>  
     </div>
   )

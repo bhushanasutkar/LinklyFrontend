@@ -10,7 +10,7 @@ import Backlinkvault from './Components/Sidebarcomponents/Backlinkvault';
 import Backlinkmanager from './Components/Sidebarcomponents/Backlinkmanager';
 import Backlinkmonitor from './Components/Sidebarcomponents/Backlinkmonitor';
 import Linkgiver from './Components/Sidebarcomponents/Linkgiver';
-
+import Orderdashboard from './Components/Sidebarcomponents/Orderdashboard';
 import Linkstate from './contextApi/Linkstate';
 import {Login} from './Components/Login';
 
@@ -36,6 +36,7 @@ return (
               <Route exact path="/backlinkvault" element={<Backlinkvault />} />
               <Route exact path="/backlinkmanager" element={<Backlinkmanager />} />
               <Route exact path="/backlinkmonitor" element={<Backlinkmonitor />} />
+              <Route exact path="/orderdashboard" element={<Orderdashboard />} />
               <Route exact path="/linkgiver" element={<Linkgiver />} />
               <Route  exact path="/" element={<Login />} />
               <Route exact path="/signup" element={<Signup />} />

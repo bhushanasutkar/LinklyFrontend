@@ -5,15 +5,15 @@ const Accountsection = (props) => {
 
   return (
     <>
-      <div className="container d-flex justify-content-between" style={{ backgroundColor: '' }}>
-        <h1 style={{ width: 'inherit' }}>{props.heading}</h1>
-        <div className="container d-flex justify-content-end" style={{ height: '100px' }}>
+      <div className="container d-flex justify-content-between" style={{ backgroundColor: 'rgb(247, 248, 255)' }}>
+        <h1 className='py-4 pl-3' style={{ width: 'inherit', fontSize:'24px' }}>{props.heading}</h1>
+        <div className=" py-4 pr-3 container d-flex justify-content-end" style={{ height: '100px' }}>
           <div className="container ">
-            <p className='text-end font-weight-bold' style={{ margin: '0', fontWeight: 700 }}>User</p>
-            <p className='text-end'>flickzee.com</p>
+            <p className='text-end font-weight-bold' style={{ margin: '0', fontWeight: 700 }}>{localStorage.getItem('name')}</p>
+            <p className='text-end'>{localStorage.getItem('email')}</p>
           </div>
 
-          <img src="images.jfif" className="img-rounded imagesize mx-2" alt="Cinque Terre"></img>
+          <img src={localStorage.getItem('imgurl')} className="img-rounded imagesizeuser mx-2 " alt="Cinque Terre"></img>
         </div>
       </div>
 

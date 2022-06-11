@@ -11,7 +11,6 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
-let userdetailid='';
 
 const Login = () => {
   const { googleSignIn, logIn } = useUserAuth();
@@ -38,10 +37,10 @@ const Login = () => {
     try {
       const googleAuthProvider = new GoogleAuthProvider();
       const userdetail=await signInWithPopup(auth, googleAuthProvider);
+      console.log(userdetail);
       localStorage.setItem('userid',userdetail.user.uid);
-      userdetailid=userdetail.user.uid
-      document.cookie=userdetail.user.uid;
-      navigate("/dashboard");
+      
+      navigate("/backlinkvault");
      
     } catch (error) {}
   };
@@ -85,5 +84,4 @@ const Login = () => {
 
 export {
   Login,
-  userdetailid,
 }

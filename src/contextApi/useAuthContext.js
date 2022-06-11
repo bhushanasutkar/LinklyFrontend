@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
+import { createContext, useContext, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -13,8 +12,7 @@ import { auth } from "../firebase";
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
-  const [user, setUser] = useState({});
-  const [userid, setuserid] = useState();
+
 
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -32,21 +30,53 @@ export function UserAuthContextProvider({ children }) {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
+      // console.log(currentuser);
       if(currentuser){
-      localStorage.setItem("token", currentuser.accessToken);
-      setUser(currentuser.accessToken);
+        // var token = await currentuser.getAuthResponse().id_token
+        
+        const token = await currentuser.getIdToken();
+        // console.log(token);
+      localStorage.setItem("token", token);
+      localStorage.setItem("email", currentuser.email);
+      localStorage.setItem("name", currentuser.displayName);
+      localStorage.setItem("imgurl", currentuser.photoURL);
+    
       }
-    });
+      
+      // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {      
+      //     // const user = currentuser;
+      //     console.log(currentuser);
+      //     const token = await auth.currentUser.getToken();
+      //     console.log("Hi");
+      //   localStorage.setItem("token", token);
+      //   setUser(currentuser.accessToken);
+        
 
+      
+    
+      // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {
+      //     // const user = currentuser;
+      //     await currentuser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      //       // Send token to your backend via HTTPS
+      //       const token = idToken;
+      //       localStorage.setItem("token", token);
+      //       // ...
+      //     }).catch(function(error) {
+      //       // Handle error
+      //     });
+        
+  });
+    
     return () => {
       unsubscribe();
     };
+  
   }, []);
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn, userid, setuserid }}
+      value={{logIn, signUp, logOut, googleSignIn }}
     >
       {children}
     </userAuthContext.Provider>

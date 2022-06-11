@@ -1,15 +1,16 @@
 import React from 'react'
 
-const Linkmonitor = () => {
+const Linkmonitor = (props) => {
+    const {monitorlink}=props
     return (
         <>
-            <div className="d-flex flex-row justify-content-center">
-                <div className=" text-center col-sm ml-2"># 34,457</div>
-                <div className=" text-center col-sm">May 25, 2019</div>
-                <div className=" text-center col-sm">https://www.sporthero.com/bla-bla-bloom.com</div>
-                <div className=" text-center col-sm">https://www.sporthero.com/bla-bla-bloom.com</div>
-                <div className=" text-center col-sm">Last Checked</div>
-                <div className="text-center col-sm">Status</div>
+             <div className="d-flex flex-row ">
+                <div className=" text-center  " style={{width:'9rem'}}>#{monitorlink.OrderId}</div>
+                <div className=" text-center"  style={{width:'9rem'}}><strong>{monitorlink.link_added_on}</strong></div>
+                <div className=" text-center "  style={{width:'18rem'}}><strong>{monitorlink.source_link}</strong></div>
+                <div className=" text-center "  style={{width:'18rem'}}><strong>{monitorlink.target_link}</strong></div>
+                <div className=" text-center "  style={{width:'9rem'}}><strong>{monitorlink.link_added_on}</strong></div>
+                <div className="text-center text-light border rounded-pill " style={{height: 'fit-content',marginLeft: '10px',width:'9rem',backgroundColor:'rgb(41, 204, 151)'}}><strong>{monitorlink.status.toUpperCase()}</strong></div>
             </div>
             <hr />
         </>
