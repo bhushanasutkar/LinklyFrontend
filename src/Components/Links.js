@@ -31,21 +31,21 @@ const Links = () => {
   return (
     <>
       <div className="">
-        <div className="container   my-5">
+        <div className="container   mt-5">
           <div className="d-flex flex-row ">
-            <div className=" text-center " style={{ width: "140px" }}>
+            <div className=" text-center " style={{ width: "185px" }}>
               SITE NAME
             </div>
-            <div className=" text-center " style={{ width: "188px" }}>
+            <div className=" text-center " style={{ width: "150px" }}>
               LINK TYPE
             </div>
-            <div className=" text-center col-sm ml-2">Content Req.</div>
-            <div className=" text-center col-sm">DA</div>
-            <div className=" text-center col-sm">SPAM</div>
-            <div className=" text-center col-sm">Category</div>
-            <div className=" text-center col-sm pr-1">Work Required</div>
-            <div className="text-center col-sm pl-4 pr-0  ">COST</div>
-            <div className="text-center col-sm"></div>
+            <div className=" text-center  "  style={{ width: "188px" }}>Content Required</div>
+            <div className=" text-center  "  style={{ width: "54px" }}>DA</div>
+            <div className=" text-center  "  style={{ width: "186px" }}>SPAM</div>
+            <div className=" text-center  "  style={{ width: "65px" }}>Category</div>
+            <div className=" text-center  "  style={{ width: "181px" }}>Work Required</div>
+            <div className="text-center   "  style={{ width: "64px" }}>COST</div>
+            <div className="text-center "></div>
           </div>
           <hr />
         </div>

@@ -4,9 +4,8 @@ import { useContext } from "react";
 import Linkcontext from "../contextApi/Linkcontext";
 import { useState } from "react";
 // const host = "https://linkly-backend-stg.herokuapp.com";
+const host= process.env.React_App_host
 const Feedbackpopup = props => {
-  const host = "https://linkly-backend-stg.herokuapp.com";
-  // const host = "http://localhost:8000";
   const UserId = localStorage.getItem('userid');
   const Linkid= props.linkid
   // const Linkid=1;
@@ -18,7 +17,7 @@ const Feedbackpopup = props => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization:  "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({Linkid,UserId, input1, input2 }),
     });
@@ -153,7 +152,7 @@ const Metadatapopup = props => {
 };
 
 const Linkexhangepopup = props => {
-  const host = "https://linkly-backend-stg.herokuapp.com";
+
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
   const Linkid= props.linkid
@@ -166,7 +165,7 @@ const Linkexhangepopup = props => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({Linkid,UserId, input1, input2 }),
     });
@@ -214,9 +213,7 @@ const Linkexhangepopup = props => {
 };
 
 const Guestblogpopup = props => {
-   const host = "https://linkly-backend-stg.herokuapp.com";
    const {acceptedlink}=props;
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -225,11 +222,23 @@ const Guestblogpopup = props => {
      const input1 = document.getElementById("exampleFormControlInput4").value
      const input2 = document.getElementById("exampleFormControlInput5").value; 
      console.log(input1,input2);
+     const email=acceptedlink.Email;
+     const getemail = await fetch(`${host}/v1/userlink/email`, {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+         authorization:  "Bearer " + localStorage.getItem("token"),
+       },
+       body: JSON.stringify({email}),
+     });
+     const parseddata = await getemail.json();
+     const Linkgiverid = parseddata.userdetail;
+     console.log(Linkgiverid);
      const response = await fetch(`${host}/v1/userlink/send_blog`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
@@ -273,8 +282,6 @@ const Guestblogpopup = props => {
 
 const Linkinsertionpopup = props => {
   const {acceptedlink}=props;
-   const host = "https://linkly-backend-stg.herokuapp.com";
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid=1;
@@ -287,7 +294,7 @@ const Linkinsertionpopup = props => {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
@@ -331,18 +338,15 @@ const Linkinsertionpopup = props => {
   );
 };
 const Addlinktomonitorpopup = props => {
-   const host = "https://linkly-backend-stg.herokuapp.com";
  
 const {Orderidlist} = useContext(Linkcontext);
-console.log('consolling');
 console.log(Orderidlist);
 const obj={order_id:"Select OrderID"}
 console.log(Orderidlist);
-if( Orderidlist.length>0 &&  Orderidlist[0].order_id!=="Select OrderID"){
+if( Orderidlist!=null && Orderidlist.length>0 &&  Orderidlist[0].order_id!=="Select OrderID"){
 Orderidlist.unshift(obj);
 }
 
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -353,7 +357,7 @@ Orderidlist.unshift(obj);
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization:  "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({UserId,orderid }),
     });
@@ -369,10 +373,6 @@ Orderidlist.unshift(obj);
     }
     document.getElementById("exampleFormControlInput8").placeholder=json.Orderids[0].source_link;
     document.getElementById("exampleFormControlInput9").placeholder=json.Orderids[0].target_link;
-    // sl=json.Orderids[0].source_link;
-    // tl=json.Orderids[0].target_link;
-    // console.log(sl);
-    // console.log(tl);
    }
    const handleclick= async ()=>{
 
@@ -385,7 +385,7 @@ Orderidlist.unshift(obj);
        method: "POST",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, orderid,souurcelink,targetlink,reltag}),
      });
@@ -464,8 +464,6 @@ We check every week to make sure the ‘Source URLs’ have your ‘Target URL�
   );
 };
 const Publishlinkpopup = props => {
-   const host = "https://linkly-backend-stg.herokuapp.com";
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -478,7 +476,7 @@ const Publishlinkpopup = props => {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, input1 }),
      });
@@ -537,8 +535,6 @@ We check every week to make sure your ‘Source URLs’ have the ‘Target URL�
   );
 };
 const Requestreworkpopup = props => {
-   const host = "https://linkly-backend-stg.herokuapp.com";
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -551,7 +547,7 @@ const Requestreworkpopup = props => {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
@@ -620,8 +616,6 @@ However, for everyone’s benefit, we would suggest to do small changes at your 
   );
 };
 const Rejectguestblogpopup = props => {
-   const host = "https://linkly-backend-stg.herokuapp.com";
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -634,7 +628,7 @@ const Rejectguestblogpopup = props => {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
@@ -705,8 +699,6 @@ const Rejectguestblogpopup = props => {
   );
 };
 const Acceptlinkexchangepopup = props => {
-  const host = "https://linkly-backend-stg.herokuapp.com";
-  // const host = "http://localhost:8000";
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
   const Linkid= props.linkid
@@ -719,7 +711,7 @@ const Acceptlinkexchangepopup = props => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization:  "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({Linkid,UserId, input1 }),
     });
@@ -766,8 +758,6 @@ const Savelogindetailpopup = props => {
   };
 
 
-   const host = "https://linkly-backend-stg.herokuapp.com";
-  //  const host = "http://localhost:8000";
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
@@ -781,7 +771,7 @@ const Savelogindetailpopup = props => {
        method: "POST",
        headers: {
          "Content-Type": "application/json",
-         authorization: localStorage.getItem("token"),
+         authorization:  "Bearer " + localStorage.getItem("token"),
        },
        body: JSON.stringify({Linkid,UserId, username,password,notes,fileimg }),
      });

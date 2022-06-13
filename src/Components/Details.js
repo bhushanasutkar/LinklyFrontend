@@ -1,23 +1,17 @@
 import React from "react";
 // import { useUserAuth } from "../contextApi/useAuthContext";
-import Linkcontext from "../contextApi/Linkcontext";
-import { useContext } from "react";
-import { userdetailid } from "./Login";
 const auth = require("../firebase");
 const Details = (props) => {
   const { link } = props;
   const linkid = link.Link_Id;
-  const { Userid, setUserid } = useContext(Linkcontext);
-  // const { userid } = useUserAuth();
-  // console.log("Inside details")
-  // console.log(userdetailid);
-  // console.log(Userid);
+
+
   const UserId = localStorage.getItem("userid");
-  // const UserId = userdetailid;
-  // console.log(UserId);
+
   const email = "bhushanasutkar0002@gmail.com";
-  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "https://linkly-backend-stg.herokuapp.com";
   // const host = "http://localhost:8000";
+  const host= process.env.React_App_host
   const handlehide = async (e) => {
     e.preventDefault();
 
@@ -101,7 +95,7 @@ const Details = (props) => {
                 Organic Keywords :<strong>{link.organic_keyword}</strong>
               </p>}
               {link.no_of_backlinks && <p style={{ marginLeft: "20px" }}>
-                No of backlins :<strong>{link.no_of_backlinks}</strong>
+                No of backlinks :<strong>{link.no_of_backlinks}</strong>
               </p>}
               {link.linking_domain && <p style={{ marginLeft: "20px" }}>
                 Linking Domain :<strong>{link.linking_domain}</strong>

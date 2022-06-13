@@ -1,17 +1,12 @@
 import { useState } from "react";
 import LinkContext from "./Linkcontext";
 import React from "react";
-
-
+ 
 
 const Linkstate = (props) => {
-  const host = "https://linkly-backend-stg.herokuapp.com";
+  // const host = "https://linkly-backend-stg.herokuapp.com";
   // const host = "http://localhost:8000";
-  // let x = document.cookie;
-  // const userid = x;
-  // console.log("Printing Coookie");
-  // console.log(x);
-  // const userid =  localStorage.getItem('userid');
+  const host= process.env.React_App_host
    var userid;
  
   console.log("Printing id");
@@ -27,8 +22,6 @@ const Linkstate = (props) => {
   const [Orderidlist, setOrderidlist] = useState([])
   const setuserid=()=>{
     userid= localStorage.getItem('userid');
-    
-    // setLinkID(id);
   }
   const getallLinks = async () => {
     console.log(size);
@@ -94,7 +87,7 @@ const Linkstate = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({userid}),
     });
@@ -110,7 +103,7 @@ const Linkstate = (props) => {
       headers: {
         "Content-Type": "application/json",
 
-        authorization: localStorage.getItem("token"),
+        authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({ userid,acceptsize }),
     });

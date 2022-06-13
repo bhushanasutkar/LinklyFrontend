@@ -4,7 +4,6 @@ import { useContext } from "react";
 import Linkcontext from "../contextApi/Linkcontext";
 import Linkgivercomponent from "./Linkgivercomponent";
 const Linkgiverlinks = () => {
-  // const host = "https://linkly-backend-stg.herokuapp.com";
   const { Linkgiverlinks, getallLinkgiverlinks,setuserid } = useContext(Linkcontext);
 
 
@@ -12,6 +11,7 @@ const Linkgiverlinks = () => {
     setuserid();
     getallLinkgiverlinks();
     console.log("linkgiver ")
+    
     console.log(Linkgiverlinks);
     // eslint-disable-next-line
   }, []);

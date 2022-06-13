@@ -14,24 +14,25 @@ const AcceptedLinks = (props) => {
   const [isOpenmetainfo, setIsOpenmetainfo] = useState(false);
   const [setstatus, setsetstatus] = useState();
   const currentstatus = async () => {
-    const host = "http://localhost:8000";
+    // const host = "http://localhost:8000";
+    const host = process.env.React_App_host
     const UserId = localStorage.getItem('userid');
     console.log("Inside update")
     const Linkid = acceptedlink.Link_Id;
-    const response1 = await fetch(`http://localhost:8000/v1/userlink/get_update_status`, {
+    const response1 = await fetch(`${host}/v1/userlink/get_update_status`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({ Linkid, UserId }),
     });
     const data = await response1.json()
-    // console.log(data);
+    console.log(data.response[0].status);
     // console.log(data.response[0].status);
     setsetstatus(data.response[0].status);
     var sdelect = document.getElementById("statusvalueid");
-    // console.log(sdelect);
+
     var items = sdelect.options;//Javascript get select all option
     // console.log(items)
     for (var i = 0; i < items.length; i++) {
@@ -39,18 +40,23 @@ const AcceptedLinks = (props) => {
         console.log("logging")
         console.log(items[i].value);
         // console.log(data.response[0].status)
-        items[i].selected = true;
+        console.log("setting selected");
+        sdelect.options[i].selected = true;
+
       }
     }
+
+    console.log(sdelect);
   }
 
   const getselectedValues = async () => {
     // var sdelect = document.getElementById("status");
     var statusvalue = document.getElementById("statusvalueid").value;
     // sdelect.options[sdelect.selectedIndex].setAttribute('selected', true);
-    console.log(statusvalue);
+    // console.log(statusvalue);
     // const host = "http://localhost:8000";
-const host = "https://linkly-backend-stg.herokuapp.com";
+    // const host = "https://linkly-backend-stg.herokuapp.com";
+    const host = process.env.React_App_host
 
     const UserId = localStorage.getItem('userid');
     // const Linkid= props.Linkid
@@ -59,11 +65,12 @@ const host = "https://linkly-backend-stg.herokuapp.com";
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: "Bearer " + localStorage.getItem("token"),
       },
       body: JSON.stringify({ Linkid, UserId, statusvalue }),
     });
-    console.log(response);
+    // console.log("hi")
+    // console.log(response);
 
   }
   const togglePopup = () => {
@@ -86,7 +93,7 @@ const host = "https://linkly-backend-stg.herokuapp.com";
   useEffect(() => {
     currentstatus();
   }, [])
-  
+
 
   return (
     <>
@@ -100,7 +107,7 @@ const host = "https://linkly-backend-stg.herokuapp.com";
               <div className='mx-1' style={{ width: '' }}>{acceptedlink.Name}</div>
               <a href={`https://${acceptedlink.Url}`} rel="noopener noreferrer" target="_blank">
 
-                <img src="new_window.svg" className="imageicon ml-1" style={{ marginTop: '4px', cursor: 'pointer' }} on alt="" />
+                <img src="new_window.svg" className="imageicon ml-1" style={{ marginTop: '0px', cursor: 'pointer' }} on alt="" />
               </a>
             </div>
             <div className=" d-flex flex-row mt-4 ">
@@ -117,42 +124,45 @@ const host = "https://linkly-backend-stg.herokuapp.com";
           </div>
           <div className="container my-3 d-flex flex-column">
             <div className="container justify-content-center d-flex flex-row mt-2 ">
-              <div className='mr-2'>{(acceptedlink.Rel_Attribute === 'dofollow') ? 'DF' : 'NF'}</div>
+              <div className='tooltip-wrap'>
+                <div className='mr-2'>{(acceptedlink.Rel_Attribute === 'dofollow') ? 'DF' : 'NF'}</div>
+                <div className='tooltip-content' >{(acceptedlink.Rel_Attribute === 'dofollow') ? 'This link will pass link juice to your site.' : 'Doesn’t pass link juice to your site, good for getting your site discovered.'}</div>
+              </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.SPM_Instantapproval === 'YES') ? 'instant_publish.svg ' : 'not_instant_publish.svg'} className='px-1' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >{(acceptedlink.SPM_Instantapproval === 'YES') ? 'Instant publish Yes' : 'Instant publish Review'}</div>
+                <div className='tooltip-content' >{(acceptedlink.SPM_Instantapproval === 'YES') ? 'For self-publish sites, your blog will be posted instantly.' : 'Your blog will be reviewed & then published by the author.'}</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Comment') ? 'comment_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types comment link</div>
+                <div className='tooltip-content' >Backlink from comments on QnAs or blogs.</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Image') ? 'image_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types image link</div>
+                <div className='tooltip-content' >Backlink from image, with an alt-text.</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Author Bio') ? 'author_bio_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types author bio link</div>
+                <div className='tooltip-content' >Backlink from Author byline, might be on blog page, or separate author page</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Content') ? 'content_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types content link</div>
+                <div className='tooltip-content' >Most wanted form of backlink, from the content, preferably at the top.</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === null) ? 'info.svg' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types fallback</div>
+                <div className='tooltip-content' >Read more in ‘Content Guidelines’ & ‘How to get link’ doc to know details.</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Profile') ? 'profile_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types profile link</div>
+                <div className='tooltip-content' >Backlink from user profile page, like facebook profile.</div>
               </div>
               <div className='tooltip-wrap'>
                 <img src={(acceptedlink.Link_Type === 'Reference') ? 'reference_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >Link types reference link</div>
+                <div className='tooltip-content' >Backlink at the bottom of the blog, in references/bibliography section</div>
               </div>
               <div className='tooltip-wrap'>
                 <img id='indexed' src={(acceptedlink.Google_Indexed === 'YES') ? 'indexed.svg ' : 'noindexed.svg'} className='px-1' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
-                <div className='tooltip-content' >{(acceptedlink.Google_Indexed === 'YES') ? 'This link will be indexed by search engines.' : 'This link will not be indexed by search engines.'}</div>
+                <div className='tooltip-content' >{(acceptedlink.Google_Indexed === 'YES') ? ' Search engines will index this page.' : 'This link will not be indexed by search engines.'}</div>
               </div>
             </div>
             <div className="container mt-4 d-flex flex-row justify-content-between mt-2 ">
@@ -170,25 +180,25 @@ const host = "https://linkly-backend-stg.herokuapp.com";
           </div>
           <div className="container my-3 d-flex flex-column">
             <div className='py-2 mb-2 font-weight-bold'>Useful Links</div>
-            <div className=" d-flex flex-row justify-content-between ">
+            <div className=" d-flex flex-row justify-content-between  my-1 ">
               <div className=''>How to get that link</div>
               <a href={`https://${acceptedlink.how_to_get_link}`} rel="noopener noreferrer" target="_blank">
-                <img src="new_window.svg" className="imageicon mr-3  " style={{ marginTop: '1px', marginRight: '20px', cursor: 'pointer' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3  " style={{ marginTop: '1px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
 
               </a>
             </div>
-            <div className=" d-flex flex-row justify-content-between ">
+            <div className=" d-flex flex-row justify-content-between mt-2 mb-1 ">
               <div className='' >Condition  for backlink</div>
               <a href={`https://${acceptedlink.Condition}`} rel="noopener noreferrer" target="_blank">
 
-                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '8px', marginRight: '20px', cursor: 'pointer' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '-2px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
               </a>
             </div>
-            <div className=" d-flex flex-row justify-content-between ">
+            <div className=" d-flex flex-row justify-content-between my-1">
               <div className='py-2' >Content Guidelines</div>
               <a href={`https://${acceptedlink.Content_Guidelines}`} rel="noopener noreferrer" target="_blank">
 
-                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '7px', marginRight: '20px', cursor: 'pointer' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '11px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
               </a>
             </div>
           </div>
@@ -210,7 +220,7 @@ const host = "https://linkly-backend-stg.herokuapp.com";
                 width: '13rem',
                 borderRadius: '9px', marginTop: '3px', cursor: 'pointer'
               }}>
-                <option value="1">Status </option>
+                <option value="">Status </option>
                 <option value="Link Accepted (by Link Taker)" >Link Accepted (by Link Taker)</option>
                 <option value="Rejected (by Link Giver)">Rejected (by Link Giver) </option>
                 <option value="Rejected (by Link Taker)">Rejected (by Link Taker)</option>

@@ -21,7 +21,7 @@ const Backlinkmanager = () => {
         <div className="container d-flex flex-row cards1 justify-content-around  " style={{ backgroundColor: '#f7f8ff' }}>
           <div className="card customcard my-2 px-3" style={{ width: '13rem' }}>
             <div className="card-body">
-              <h4 className="card-title text-muted text-center">To Do</h4>
+              <h4 className="card-title text-muted text-center">In Progress</h4>
               <h1 className='text-center mt-3'>64</h1>
             </div>
           </div>
@@ -40,12 +40,6 @@ const Backlinkmanager = () => {
           <div className="card customcard my-2" style={{ width: '13rem' }}>
             <div className="card-body">
               <h4 className="card-title text-muted text-center">Link Created</h4>
-              <h1 className='text-center mt-3'>64</h1>
-            </div>
-          </div>
-          <div className="card customcard my-2" style={{ width: '13rem' }}>
-            <div className="card-body">
-              <h4 className="card-title text-muted text-center">Awaiting</h4>
               <h1 className='text-center mt-3'>64</h1>
             </div>
           </div>
