@@ -11,47 +11,48 @@ const AcceptedLinks = (props) => {
   const [isOpenExchange, setIsOpenExchange] = useState(false);
   const [isOpenblog, setIsOpenblog] = useState(false);
   const [isOpeninsertion, setIsOpeninsertion] = useState(false);
+  const [issavelogin, setissavelogin] = useState(false);
   const [isOpenmetainfo, setIsOpenmetainfo] = useState(false);
   const [setstatus, setsetstatus] = useState();
   const currentstatus = async () => {
     // const host = "http://localhost:8000";
     const host = process.env.React_App_host
     const UserId = localStorage.getItem('userid');
-    console.log("Inside update")
-    const Linkid = acceptedlink.Link_Id;
-    const response1 = await fetch(`${host}/v1/userlink/get_update_status`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({ Linkid, UserId }),
-    });
-    const data = await response1.json()
-    console.log(data.response[0].status);
+    // console.log("Inside update")
+    // const Linkid = acceptedlink.Link_Id;
+    // const response1 = await fetch(`${host}/v1/userlink/get_update_status`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     authorization: "Bearer " + localStorage.getItem("token"),
+    //   },
+    //   body: JSON.stringify({ Linkid, UserId }),
+    // });
+    // const data = await response1.json()
     // console.log(data.response[0].status);
-    setsetstatus(data.response[0].status);
-    var sdelect = document.getElementById("statusvalueid");
+    // console.log(data.response[0].status);
+    setsetstatus(acceptedlink.status);
+    var sdelect = document.getElementById(`statusvalueid-${acceptedlink.Link_Id}`);
 
-    var items = sdelect.options;//Javascript get select all option
-    // console.log(items)
-    for (var i = 0; i < items.length; i++) {
-      if (items[i].value === data.response[0].status) {
-        console.log("logging")
-        console.log(items[i].value);
-        // console.log(data.response[0].status)
-        console.log("setting selected");
-        sdelect.options[i].selected = true;
+    // var items = sdelect.options;//Javascript get select all option
+    // // console.log(items)
+    // for (var i = 0; i < items.length; i++) {
+    //   if (items[i].value === data.response[0].status) {
+    //     console.log("Are equal")
+    //     console.log(items[i].value);
+    //     console.log(data.response[0].status)
+    //     console.log("setting selected true");
+    //     sdelect.options[i].selected = true;
 
-      }
-    }
+    //   }
+    // }
 
-    console.log(sdelect);
+    
   }
 
   const getselectedValues = async () => {
     // var sdelect = document.getElementById("status");
-    var statusvalue = document.getElementById("statusvalueid").value;
+    var statusvalue = document.getElementById(`statusvalueid-${acceptedlink.Link_Id}`).value;
     // sdelect.options[sdelect.selectedIndex].setAttribute('selected', true);
     // console.log(statusvalue);
     // const host = "http://localhost:8000";
@@ -70,7 +71,7 @@ const AcceptedLinks = (props) => {
       body: JSON.stringify({ Linkid, UserId, statusvalue }),
     });
     // console.log("hi")
-    // console.log(response);
+    console.log(response);
 
   }
   const togglePopup = () => {
@@ -90,6 +91,14 @@ const AcceptedLinks = (props) => {
   const toogleinsertionPopup = () => {
     setIsOpeninsertion(!isOpeninsertion);
   }
+  const toogleSavelogindetail = () => {
+    console.log("Hi");
+    setissavelogin(!issavelogin);
+  }
+  const openurl=()=>{
+    console.log("hi")
+    window.open(acceptedlink.registration_link, '_blank');
+  }
   useEffect(() => {
     currentstatus();
   }, [])
@@ -97,7 +106,7 @@ const AcceptedLinks = (props) => {
 
   return (
     <>
-
+      
       <div className='border border-secondary  mb-4 mx-5 ' style={{ backgroundColor: 'white', borderRadius: '10px' }}>
 
         <div className='container d-flex flex-row'>
@@ -110,11 +119,11 @@ const AcceptedLinks = (props) => {
                 <img src="new_window.svg" className="imageicon ml-1" style={{ marginTop: '0px', cursor: 'pointer' }} on alt="" />
               </a>
             </div>
-            <div className=" d-flex flex-row mt-4 ">
+            { acceptedlink.content_type && <div className=" d-flex flex-row mt-4 ">
               <div className='' style={{ width: 'max-content' }}>Content Req.</div>
               <div className=' text-center' style={{ width: '7rem', height: '1.75rem', marginLeft: 'auto' }}><strong> {acceptedlink.content_type}</strong></div>
-            </div>
-            <div className=" d-flex flex-row mt-2 ">
+            </div>}
+            <div className=" d-flex flex-row mt-3 ">
               <div className='mr-2 '>Work Req.</div>
               <div className=' text-center' style={{ width: '7rem', height: '1.75rem', marginLeft: 'auto' }}><strong>{acceptedlink.Work_Required}</strong></div>
             </div>
@@ -208,27 +217,30 @@ const AcceptedLinks = (props) => {
 
           </div>
           <div className="container my-3 d-flex flex-column justify-content-between ">
-            {acceptedlink.Link_category === 'FREE' && acceptedlink.contact_method === 'Email' && <button type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Email`}</button>}
-            {acceptedlink.Link_category === 'FREE' && acceptedlink.contact_method === 'Link' && <button type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Submit Here`}</button>}
+            {acceptedlink.Link_category === 'FREE' &&acceptedlink.contact_method === 'Email' && <button type="button" onClick={toogleSavelogindetail} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', color:'white', height: ' 3.5rem' }}>{`Send Email`}</button>}
+            {acceptedlink.Link_category === 'FREE'&& acceptedlink.status === 'Submitted - Waiting for Approval (from Link Giver)'  && acceptedlink.contact_method === 'Link' &&  <button onClick={toogleSavelogindetail} type="button"  class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: 'white',color:'#4b2ca9', height: ' 3.5rem' }}>{`Save Login Detail`}</button>}
+            {acceptedlink.Link_category === 'FREE'&& acceptedlink.status !== 'Submitted - Waiting for Approval (from Link Giver)'  && acceptedlink.contact_method === 'Link' &&  <button onClick={openurl} type="button"  class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Submit Here`}</button>}
             {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Guest Blog' && <button type="button" onClick={toggleGuestblogPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Guest Blog`}</button>}
             {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Link Insertion' && <button type="button" onClick={toogleinsertionPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Content`}</button>}
             {acceptedlink.Link_category === 'EXCHANGE' && <button type="button" onClick={toggleExchange} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Request`}</button>}
             <div>
               <div className="" >Current Status</div>
-              <select id="statusvalueid" onChange={getselectedValues} style={{
+              {/* id={`${index}-statusvalueid`} */}
+              {/* selected={enumval==1}  */}
+              <select id={`statusvalueid-${acceptedlink.Link_Id}`} onChange={getselectedValues} style={{
                 height: '2.5rem',
                 width: '13rem',
                 borderRadius: '9px', marginTop: '3px', cursor: 'pointer'
               }}>
                 <option value="">Status </option>
-                <option value="Link Accepted (by Link Taker)" >Link Accepted (by Link Taker)</option>
-                <option value="Rejected (by Link Giver)">Rejected (by Link Giver) </option>
-                <option value="Rejected (by Link Taker)">Rejected (by Link Taker)</option>
-                <option value="In progress">In progress</option>
-                <option value="Re-work">Re-work</option>
-                <option value="Submitted - Waiting for Approval (from Link Giver)">Submitted - Waiting for Approval (from Link Giver) </option>
-                <option value="Re-Submitted after Re-work - Waiting for Approval (from Link Giver)">Re-Submitted after Re-work - Waiting for Approval (from Link Giver)</option>
-                <option value="Link Created">Link Created</option>
+                <option selected={setstatus==='Link Accepted (by Link Taker)'} value="Link Accepted (by Link Taker)" >Link Accepted (by Link Taker)</option>
+                <option  selected={setstatus==='Rejected (by Link Giver)'}  value="Rejected (by Link Giver)">Rejected (by Link Giver) </option>
+                <option  selected={setstatus==='Rejected (by Link Taker)'}  value="Rejected (by Link Taker)">Rejected (by Link Taker)</option>
+                <option  selected={setstatus==='In progress'}  value="In progress">In progress</option>
+                <option  selected={setstatus==='Re-work'}  value="Re-work">Re-work</option>
+                <option  selected={setstatus==='Submitted - Waiting for Approval (from Link Giver)'}  value="Submitted - Waiting for Approval (from Link Giver)">Submitted - Waiting for Approval (from Link Giver) </option>
+                <option  selected={setstatus==='Re-Submitted after Re-work - Waiting for Approval (from Link Giver)'}  value="Re-Submitted after Re-work - Waiting for Approval (from Link Giver)">Re-Submitted after Re-work - Waiting for Approval (from Link Giver)</option>
+                <option  selected={setstatus==='Link Created'}  value="Link Created">Link Created</option>
               </select>
             </div>
 
@@ -242,8 +254,11 @@ const AcceptedLinks = (props) => {
                 >Feedback</div>
               </div>
 
-              {isOpen && <Savelogindetailpopup
+              {isOpen && <Feedbackpopup
                 handleClose={togglePopup} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}
+              />}
+              {issavelogin && <Savelogindetailpopup
+                handleClose={toogleSavelogindetail} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}
               />}
               {isOpeninsertion && <Linkinsertionpopup
                 handleClose={toogleinsertionPopup} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}

@@ -15,14 +15,10 @@ const Home = () => {
   };
   return (
     <>
-      <div className="p-4 box mt-2 mx-1 text-center text-bold">
-        Welcome to LINKLY <br />
-        {user && user.email}
-      </div>
       <div className="d-grid gap-2 mx-1">
         <Button
           variant="primary"
-          style={{ height: "maxContent", margin: "auto" }}
+          style={{ height: "maxContent", margin: "auto",width: 'max-content',backgroundColor:'#4b2ca9' }}
           onClick={handleLogout}
         >
           Log out

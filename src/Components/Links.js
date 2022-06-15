@@ -8,11 +8,33 @@ import { useEffect } from "react";
 
 const Links = () => {
   
-  const { size,setsize,Link, getallLinks,setuserid } = useContext(Linkcontext);
-
+  const { size,setsize,Link, setLink,getallLinks,setuserid } = useContext(Linkcontext);
+  const setsorted=()=>{
+    
+    console.log("hey")
+    console.log(Link);
+    setsize(10);
+    var sdelect = document.getElementById('sortlinkvalut').value;
+    console.log(sdelect);
+    setuserid();
+      // setLink([])
+      getallLinks(sdelect);
+      console.log("Hi")
+      console.log(Link)
+  }
+  // const setfilter=()=>{
+  //   var sdelect = document.getElementById('sortlinkvaludgft').value;
+  //   console.log(sdelect);
+  //   setuserid();
+  //     getallLinks(sdelect);
+  // }
   useEffect(() => {
     setuserid();
-    getallLinks();
+    
+    
+      var sdelect = document.getElementById('sortlinkvalut').value;
+      getallLinks(sdelect);
+    
     // eslint-disable-next-line
   }, [size]);
    function getsize(){
@@ -30,6 +52,44 @@ const Links = () => {
 
   return (
     <>
+    <div className="container d-flex flex-row justify-content-end pt-3" style={{ backgroundColor: '#f7f8ff', height: '60px' }}>
+          <h5 style={{ width: 'inherit', marginLeft: '40px' }}><strong>Grab your backlinks now!</strong></h5>
+          <div className="container  d-flex flex-row justify-content-end " style={{ marginRight: '80px', backgoundColor: '' }}>
+            <img className="imageicon " style={{ marginTop: '4px', cursor: 'pointer' }} src="sort_icon.svg" alt="" />
+            <select  style={{
+                height: '1.5rem',
+                width: '4rem',
+                border: 'aliceblue',
+                backgroundColor: '#f7f8ff',
+                borderRadius: '0px', marginTop: '0px', cursor: 'pointer'
+              }} onChange={setsorted} id='sortlinkvalut'>
+                <option value="Link_Id"><strong>Sort</strong> </option>
+                <option value="Domain_Authority desc" >Increasing Domain Authority</option>
+                <option value="Domain_Authority asc" >Decreasing Domain Authority</option>
+                <option value="Ahrefs_Rating desc">Increasing Ahrefs Rating </option>
+                <option value="Ahrefs_Rating asc">Decreasing Ahrefs Rating </option>
+                <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) desc"> Increasing Price</option>
+                <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) asc"> Decreasing Price</option>
+              </select>
+            <img className="imageicon ml-4 " style={{ marginTop: '4px', cursor: 'pointer' }} src="filter_icon.svg" alt="" />
+            <select  style={{
+                height: '1.5rem',
+                width: '4rem',
+                border: 'aliceblue',
+                backgroundColor: '#f7f8ff',
+                borderRadius: '0px', marginTop: '0px', cursor: 'pointer'
+              }}  id='sortlinkvalutgilter'>
+                <option value="Link_Id"><strong>Filter</strong> </option>
+                <option value="Domain_Authority desc" >Increasing Domain Authority</option>
+                <option value="Domain_Authority asc" >Decreasing Domain Authority</option>
+                <option value="Ahrefs_Rating desc">Increasing Ahrefs Rating </option>
+                <option value="Ahrefs_Rating asc">Decreasing Ahrefs Rating </option>
+                <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) desc"> Increasing Price</option>
+                <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) asc"> Decreasing Price</option>
+              </select>
+          </div>
+        </div>
+
       <div className="">
         <div className="container   mt-5">
           <div className="d-flex flex-row ">

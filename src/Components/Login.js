@@ -61,7 +61,7 @@ const Login = () => {
             <h1 className="text-light text-center px-2 py-1">LINKLY</h1>
           </div>
           <h6 className="text-secondary text-center py-2">
-            THE BACKLINK MARETPLACE
+            THE BACKLINK MARKETPLACE
           </h6>
         </div>
         {error && <Alert variant="danger">{error}</Alert>}

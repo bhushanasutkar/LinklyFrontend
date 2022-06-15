@@ -7,21 +7,24 @@ import Linkcontext from "../contextApi/Linkcontext";
 import { useEffect } from "react";
 const Monitorlink = () => {
   const UserId = localStorage.getItem('userid');
-  const {Orderidlist, setOrderidlist} = useContext(Linkcontext);
+  const { Orderidlist, setOrderidlist } = useContext(Linkcontext);
+  const [present, setpresent] = useState();
+  const [absent, setabsent] = useState()
+  const [notchecked, setnotchecked] = useState()
   // const host = "http://localhost:8000";
-// const host = "https://linkly-backend-stg.herokuapp.com";
-const host= process.env.React_App_host
+  // const host = "https://linkly-backend-stg.herokuapp.com";
+  const host = process.env.React_App_host
 
   const [isOpenAcceplink, setIsOpenAcceplink] = useState(false);
   const toggleAddlink = async () => {
     setIsOpenAcceplink(!isOpenAcceplink);
-     const response = await fetch(`${host}/v1/userlink/orderids`, {
+    const response = await fetch(`${host}/v1/userlink/orderids`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: localStorage.getItem("token"),
+        authorization: 'Bearer ' + localStorage.getItem("token"),
       },
-      body: JSON.stringify({UserId}),
+      body: JSON.stringify({ UserId }),
     });
     // console.log(response);
     const json = await response.json();
@@ -33,17 +36,40 @@ const host= process.env.React_App_host
       // console.log(element.order_id);
     });
   };
-  const { Monitooredlink, getallmonitoredlink, setuserid } =useContext(Linkcontext);
+
+  const getcount = async () => {
+
+
+    const response = await fetch(`${host}/v1/userlink/getcountstatus`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: 'Bearer ' + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ UserId }),
+    });
+    const json = await response.json();
+    console.log(json.response[0].total)
+    setpresent(json.response[0].total)
+    setabsent(json.response[1].total)
+    setnotchecked(json.response[2].total)
+
+  };
+  const { Monitooredlink, getallmonitoredlink, setuserid } = useContext(Linkcontext);
+
+
   useEffect(() => {
     setuserid();
     getallmonitoredlink();
-  
- 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getcount();
+
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <div>
-     <div className="container">
+      <div className="container">
         <div
           className="  container border border-secondary d-flex flex-row"
           style={{ borderRadius: "10px" }}
@@ -110,7 +136,18 @@ const host= process.env.React_App_host
               <h4 className=" py-1 my-1 card-title text-muted text-center">
                 Success
               </h4>
-              <h1 className="text-center mt-3">0</h1>
+              <h1 className="text-center mt-3">{present}</h1>
+            </div>
+          </div>
+          <div
+            className="card customcard my-2"
+            style={{ width: "10rem", height: "9rem" }}
+          >
+            <div className="card-body" style={{ }}>
+              <h4 className="  card-title text-muted text-center">
+                Not Checked
+              </h4>
+              <h1 className="text-center ">{notchecked}</h1>
             </div>
           </div>
           <div
@@ -121,7 +158,7 @@ const host= process.env.React_App_host
               <h4 className="card-title py-1 my-1 text-muted text-center">
                 Failure
               </h4>
-              <h1 className="text-center mt-3">0</h1>
+              <h1 className="text-center mt-3">{absent}</h1>
             </div>
           </div>
         </div>
@@ -182,20 +219,20 @@ const host= process.env.React_App_host
             </div>
             <hr />
             {Monitooredlink.map((element) => {
-      return <Linkmonitor key={element.Id} monitorlink={element} />;
-    })}
+              return <Linkmonitor key={element.Id} monitorlink={element} />;
+            })}
             <hr />
           </div>
         </div>
-     
+
         {isOpenAcceplink && (
           <Addlinktomonitorpopup handleClose={toggleAddlink} />
         )}
       </div>
-      
-  
+
+
     </div>
-   
+
   )
 };
 

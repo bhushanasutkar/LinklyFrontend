@@ -146,10 +146,10 @@ const Linkcomponent = (props) => {
               <img src={(link.Link_Type === 'Content') ? 'content_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
               <div className='tooltip-content' >Most wanted form of backlink, from the content, preferably at the top.</div>
             </div>
-            <div className='tooltip-wrap'>
-              <img src={(link.Link_Type === null) ? 'info.svg' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
+            {link.Link_Type === null && <div className='tooltip-wrap'>
+              <img src={(link.Link_Type === null) ? 'info.svg' : ''} className='' style={{ marginTop: '2px', width:'20px', height: 'fit-content' }} alt="" />
               <div className='tooltip-content' >Read more in ‘Content Guidelines’ & ‘How to get link’ doc to know details.</div>
-            </div>
+            </div>}
             <div className='tooltip-wrap'>
               <img src={(link.Link_Type === 'Profile') ? 'profile_link.svg ' : ''} className='' style={{ marginTop: '2px', height: 'fit-content' }} alt="" />
               <div className='tooltip-content' >Backlink from user profile page, like facebook profile.

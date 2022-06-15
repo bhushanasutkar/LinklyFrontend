@@ -223,6 +223,7 @@ const Guestblogpopup = props => {
      const input2 = document.getElementById("exampleFormControlInput5").value; 
      console.log(input1,input2);
      const email=acceptedlink.Email;
+     console.log(email);
      const getemail = await fetch(`${host}/v1/userlink/email`, {
        method: "POST",
        headers: {
@@ -232,15 +233,15 @@ const Guestblogpopup = props => {
        body: JSON.stringify({email}),
      });
      const parseddata = await getemail.json();
-     const Linkgiverid = parseddata.userdetail;
-     console.log(Linkgiverid);
+     console.log(parseddata.details.uid);
+     const linkgiverid=parseddata.details.uid
      const response = await fetch(`${host}/v1/userlink/send_blog`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
          authorization:  "Bearer " + localStorage.getItem("token"),
        },
-       body: JSON.stringify({Linkid,UserId, input1, input2 }),
+       body: JSON.stringify({Linkid,UserId, input1, input2,linkgiverid }),
      });
      console.log(response);
      props.handleguestblogClose();
@@ -466,12 +467,14 @@ We check every week to make sure the ‘Source URLs’ have your ‘Target URL�
 const Publishlinkpopup = props => {
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
-   const Linkid= props.linkid
+   const {linkgivereachlink,Linkid}=props
+  //  const Linkid= props.linkid
    const handleclick= async ()=>{
      console.log("Inside handleclick")
      const input1 = document.getElementById("exampleFormControlInput10").value
+     const input2 = document.getElementById("exampleFormControlInput66").value
     //  const input2 = document.getElementById("exampleFormControlInput7").value; 
-     console.log(input1);
+     console.log(input1,input2);
      const response = await fetch(`${host}/v1/userlink/publishlink`, {
        method: "PUT",
        headers: {
@@ -501,28 +504,28 @@ We check every week to make sure your ‘Source URLs’ have the ‘Target URL�
           <div className="px-5  ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Order ID</label>
-              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control  " id="exampleFormControlInput6" placeholder="34566754" />
-              <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>The order ID is automatically fetched from the corresponding order.</div>
+              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control" value={linkgivereachlink.order_id} id="exampleFormControlInput66" placeholder={linkgivereachlink.order_id} />
+              <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>The order ID is automatically fetched from the corresponding order. target_link,source_link</div>
             </div>
           </div>
           <div className="px-5 ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Source Link</label>
-              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px' }} type="email" class="form-control  border border-secondary " id="exampleFormControlInput10" placeholder="Status" />
+              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px' }} type="url" class="form-control  border border-secondary " id="exampleFormControlInput10" placeholder="Source Link" />
               <div className=" text-muted pl-3 pr-5 mt-1" style={{ fontSize: '0.75rem' }}>Enter the URL of your site the ‘Target Link’ is present. Before entering, please make sure that the Target Link is present in ‘View Source’ (Ctrl/Cmd + U), otherwise the module will give an error.</div>
             </div>
           </div>
           <div className="px-5 ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Target Link</label>
-              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " id="exampleFormControlInput6" placeholder="Status" />
+              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " value={linkgivereachlink.target_link} id="exampleFormControlInput" placeholder={linkgivereachlink.target_link} />
               <div className=" text-muted pl-3 pr-5 mt-1" style={{ fontSize: '0.75rem' }}>The target link is automatically fetched for the corresponding order.</div>
             </div>
           </div>
           <div className="px-5  ">
             <div class=" px-3 form-group ">
               <label className="mb-1" htmlFor="exampleFormControlInput1"> Rel Tag</label>
-              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " id="exampleFormControlInput6" placeholder="Do follow" />
+              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " value={linkgivereachlink.Rel_Attribute} id="exampleFormControlInput6" placeholder={linkgivereachlink.Rel_Attribute} />
             </div>
           </div>
           <div className="px-5 mb-2">
@@ -537,7 +540,7 @@ We check every week to make sure your ‘Source URLs’ have the ‘Target URL�
 const Requestreworkpopup = props => {
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
-   const Linkid= props.linkid
+   const {linkgivereachlink,Linkid}=props
    const handleclick= async ()=>{
      console.log("Inside handleclick")
      const input1 = document.getElementById("requestoption").value
@@ -570,7 +573,7 @@ However, for everyone’s benefit, we would suggest to do small changes at your 
           <div className="px-5  ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Order ID</label>
-              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control  " id="exampleFormControlInput6" placeholder="34566754" />
+              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control  " value={linkgivereachlink.order_id} id="exampleFormControlInput6" placeholder={linkgivereachlink.order_id} />
               <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>The order ID is automatically fetched from the corresponding order.</div>
             </div>
           </div>
@@ -601,7 +604,7 @@ However, for everyone’s benefit, we would suggest to do small changes at your 
           <div className="px-5 my-2 ">
             <div class=" px-3 form-group ">
               <label className="mb-1" htmlFor="exampleFormControlInput1"> Target Link</label>
-              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " id="exampleFormControlInput12" placeholder="" />
+              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " value={linkgivereachlink.target_link} id="exampleFormControlInput12" placeholder={linkgivereachlink.target_link}/>
               <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}> The target link is automatically fetched for the corresponding order.</div>
             </div>
           </div>
@@ -618,7 +621,7 @@ However, for everyone’s benefit, we would suggest to do small changes at your 
 const Rejectguestblogpopup = props => {
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
-   const Linkid= props.linkid
+   const {linkgivereachlink,Linkid}=props
    const handleclick= async ()=>{
      console.log("Inside handleclick")
      const input1 = document.getElementById("reworkoption").value
@@ -653,7 +656,7 @@ const Rejectguestblogpopup = props => {
           <div className="px-5  ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Order ID</label>
-              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control  " id="exampleFormControlInput6" placeholder="34566754" />
+              <input style={{ height: '3rem', fontSize: 'smaller',borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control  " value={linkgivereachlink.order_id} id="exampleFormControlInput6" placeholder={linkgivereachlink.order_id} />
               <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>The order ID is automatically fetched from the corresponding order.</div>
             </div>
           </div>
@@ -685,7 +688,7 @@ const Rejectguestblogpopup = props => {
           <div className="px-5 my-1 ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1"> Target Link</label>
-              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control " id="exampleFormControlInput6" placeholder="" />
+              <input style={{ height: '3rem', fontSize: 'smaller' ,borderRadius: '9px',backgroundColor:'#DFE0EB' }} type="email" class="form-control "  value={linkgivereachlink.target_link} id="exampleFormControlInput6" placeholder={linkgivereachlink.target_link} />
             <div className="  text-muted pl-3 pr-3 " style={{ fontSize: '0.75rem' }}>The target link is automatically fetched for the corresponding order.</div>
             </div>
           </div>
@@ -731,7 +734,7 @@ const Acceptlinkexchangepopup = props => {
           <div className="px-2 text-center">Something isn’t right with the information we have shown ? </div>
           <div className="px-2 text-center">Let us know and we will fix it in 24 hours.</div>
         </div>
-        <div className="container" style={{ paddingLeft: '70px', paddingRight: '70px' }}>
+        <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
           <div className="px-5 ">
             <div class=" px-3 form-group ">
               <label className="mb-1 ml-1" htmlFor="exampleFormControlInput1">List of 3 topics</label>
@@ -751,16 +754,39 @@ const Savelogindetailpopup = props => {
 
   const {acceptedlink} = props;
   const [fileimg, setFileimg] = useState();
-  var loadFile = function(event) {
+  const [passurl, setpassurl] = useState();
+  var loadFile = async  function(event) {
+    console.log("inssids")
     var image = document.getElementById('image-input');
+    console.log(event.target.files[0].name.split('.')[0]);
+    setpassurl(event.target.files[0].name.split('.')[0])
     const url=URL.createObjectURL(event.target.files[0])
      setFileimg(url);
+     const finalurl= await uploadimageproof(url,passurl);
+     console.log(finalurl);
   };
 
 
    const UserId = localStorage.getItem('userid');
    // const Linkid= props.Linkid
    const Linkid= props.linkid
+   const uploadimageproof= async (imageurl, imagename )=>{
+    console.log(fileimg,passurl);
+    const uploadedimageurl = await fetch(
+      `${host}/v1/userlink/iconurl`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: 'Bearer ' + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({imageurl, imagename  }),
+      }
+    );
+    const finalurl = await uploadedimageurl.json();
+    // console.log(finalurl.url);
+    return finalurl;
+   }
    const handleclick= async ()=>{
      console.log("Inside handleclick")
      const username = document.getElementById("exampleFormControlInput20").value;
@@ -810,7 +836,7 @@ const Savelogindetailpopup = props => {
               {/* <input style={{ height: '3rem', fontSize: 'smaller', width: 'inherit' }} type="email" class="form-control  border border-secondary " id="exampleFormControlInput1" placeholder="Upload Image" /> */}
               <div>
               <input  className="border border-secondary" style={{paddingTop: '8px',paddingLeft: '7px',height: '50px',width: '-webkit-fill-available',borderRadius: '4px',borderColor: '#a3a9ae'}} type="file" id="image-input" accept="image/jpeg, image/png, image/jpg" onChange={loadFile}></input>           
-              {/* <img className="Icon" src={fileimg} alt="NA" /> */}
+              {/* <img className="Icon" style={{height:'40px',width:'40px'}} src={fileimg} alt="" /> */}
               <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>Upload your proof of work</div>
               </div>
             </div>

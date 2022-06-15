@@ -65,5 +65,5 @@ const Signup = () => {
         </>
     );
 };
-
+// React_App_host = 'http://localhost:8000'
 export default Signup;

@@ -34,12 +34,6 @@ const Sidebar = () => {
                 <Heading></Heading>
                 <div className="text-light text-start container class1">
                     <div>
-                        <div className="container  Navhover   d-flex flex-row justify-content-start align-items-center" style={{ backgroundColor: `${location.pathname === '/dashboard' ? 'rgb(215, 240, 240)' : "rgb(45, 45, 45)"}` }}>
-                            <img className="Icon" src="left_dashboard.svg" alt="" />
-                            <Link className="px-3 Navtext " style={{ color: `${location.pathname === '/dashboard' ? 'rgb(45, 45, 45)' : "rgb(215, 240, 240)"}` }} to="/dashboard">Dashboard</Link>
-                        </div>
-                    </div>
-                    <div>
                         <div className="container  Navhover   d-flex flex-row justify-content-start align-items-center" style={{ backgroundColor: `${location.pathname === '/backlinkvault' ? 'rgb(215, 240, 240)' : "rgb(45, 45, 45)"}` }}>
                             <img className="Icon" src="left_backlink_vault.svg" alt="" />
                             <Link className="  px-3  Navtext" style={{ color: `${location.pathname === '/backlinkvault' ? 'rgb(45, 45, 45)' : "rgb(215, 240, 240)"}` }} to="/backlinkvault">Linkvault</Link>

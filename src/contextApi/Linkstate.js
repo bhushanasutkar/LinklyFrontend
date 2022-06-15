@@ -23,7 +23,8 @@ const Linkstate = (props) => {
   const setuserid=()=>{
     userid= localStorage.getItem('userid');
   }
-  const getallLinks = async () => {
+  
+  const getallLinks = async (orderby) => {
     console.log(size);
     const firebaseUserIdToken = localStorage.getItem("token")
     const response = await fetch(`${host}/v1/userlink`, {
@@ -35,10 +36,11 @@ const Linkstate = (props) => {
         authorization:  "Bearer " + firebaseUserIdToken,
 
       },
-      body: JSON.stringify({ userid,size }),
+      body: JSON.stringify({ userid,size,orderby }),
     });
     const json = await response.json();
-    setLink(json.Links);
+    setLink(Link.concat( json.Links));
+    // setLink(json.Links);
 
   };
 
@@ -114,7 +116,7 @@ const Linkstate = (props) => {
  
   return (
     <LinkContext.Provider
-      value={{ Orderidlist, acceptsize, setacceptsize,setOrderidlist ,size,setsize,acceptedLinks,Monitooredlink, getallacceptedLinks, getallmonitoredlink,Link,Orderedlinks, getalloredredlinks,getallLinks,setuserid, LinkID ,Linkgiverlinks, getallLinkgiverlinks }}
+      value={{ Orderidlist, acceptsize, setacceptsize,setOrderidlist ,setLink,size,setsize,acceptedLinks,Monitooredlink, getallacceptedLinks, getallmonitoredlink,Link,Orderedlinks, getalloredredlinks,getallLinks,setuserid, LinkID ,Linkgiverlinks, getallLinkgiverlinks }}
     >
       {props.children}
     </LinkContext.Provider>

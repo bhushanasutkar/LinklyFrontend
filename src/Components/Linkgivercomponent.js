@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from "react";
 import Linkcontext from "./../contextApi/Linkstate";
-import { Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup } from './Popups';
+import { Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup,Acceptlinkexchangepopup } from './Popups';
 const Linkgivercomponent = (props) => {
     const { linkgiverlink } = props;
     const [isOpenrework, setIsOpenrework] = useState(false);
     const [isOpenreject, setIsOpenreject] = useState(false);
     const [isOpenpublish, setIsOpenpublish] = useState(false);
+    const [isapprove, setisapprove] = useState(false);
     // const {  getallacceptedLinks, setuserid } = useContext(Linkcontext);
     // useEffect(() => {
     //   setuserid();
@@ -24,6 +25,9 @@ const Linkgivercomponent = (props) => {
     }
     const togglepublish = () => {
         setIsOpenpublish(!isOpenpublish);
+    }
+    const toggleapprovce = () => {
+        setisapprove(!isapprove);
     }
     return (
         <>
@@ -41,11 +45,11 @@ const Linkgivercomponent = (props) => {
                         </div>
                         <div className=" d-flex flex-row mt-4  ">
                             <div className='text-muted'>Order ID:</div>
-                            <div className='text-end  text-muted' style={{ width: '7rem', height: '1.75rem', marginLeft: '' }}> #34,557</div>
+                            <div className='text-end  text-muted' style={{ width: '7rem', height: '1.75rem', marginLeft: '' }}> #{linkgiverlink.order_id}</div>
                         </div>
                         <div className=" d-flex flex-row mt-2 ">
                             <div className='text-muted mr-2 '>Order On:</div>
-                            <div className='text-end' style={{ width: '7rem', height: '1.75rem', marginLeft: '' }}><strong>May 25, 2019</strong></div>
+                            <div className='text-center' style={{ width: '9rem', height: '1.75rem', marginLeft: '' }}><strong>{linkgiverlink.link_added_on}</strong></div>
                         </div>
                     </div>
                     <div className="container  d-flex flex-column  justify-content-center  ">
@@ -72,11 +76,14 @@ const Linkgivercomponent = (props) => {
                         </div>
                         <div className="container mb-4 d-flex justify-content flex-row" style={{ marginTop: '11px' }}>
                             <div className='mx-4' style={{ width: ' ' }}>Linkly Credits</div>
-                            <div className='   rounded-pill text-center' style={{ width: '4rem', height: '1.5rem', backgroundColor: '#5541D7', color: 'white' }}><strong>${(linkgiverlink.linkly_credits)?linkgiverlink.linkly_credits:0}</strong></div>
+                            <div className='   rounded-pill text-center' style={{ width: '4rem', height: '1.5rem', backgroundColor: '#5541D7', color: 'white' }}><strong>{(linkgiverlink.linkly_credits)?linkgiverlink.linkly_credits:0}</strong></div>
                         </div>
                     </div>
                     <div className="container  d-flex flex-column justify-content-center ">
-                        <button type="button" onClick={togglepublish} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Publish`}</button>
+                      {linkgiverlink.content_type==='Guest Blog' &&  <button type="button" onClick={togglepublish} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Publish`}</button>}
+                      { linkgiverlink.content_type==='Link Insertion' &&  <button type="button" onClick={togglepublish} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Publish`}</button>}
+                      {/* linkgiverlink.Link_category==='PAID'&& */}
+                      {linkgiverlink.Link_category==='EXCHANGE'&&  <button type="button" onClick={toggleapprovce} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Approve`}</button>}
                         <div onClick={togglereuestrework} style={{ color: '#4b2ca9', cursor: 'pointer' }}>Request Re-work</div>
                         <div onClick={togglereject} className='text-end ' style={{ cursor: 'pointer' }}><u>Reject with Detailed Feedback</u></div>
 
@@ -84,13 +91,16 @@ const Linkgivercomponent = (props) => {
 
                 </div>
                 {isOpenrework && <Requestreworkpopup linkid={linkgiverlink.Link_Id}
-                    handleClose={togglereuestrework}
+                    handleClose={togglereuestrework} linkgivereachlink={linkgiverlink}
+                />}
+                {isapprove && <Acceptlinkexchangepopup linkid={linkgiverlink.Link_Id}
+                    handleClose={toggleapprovce}  linkgivereachlink={linkgiverlink}
                 />}
                 {isOpenreject && <Rejectguestblogpopup linkid={linkgiverlink.Link_Id}
-                    handleClose={togglereject}
+                    handleClose={togglereject} linkgivereachlink={linkgiverlink}
                 />}
                 {isOpenpublish && <Publishlinkpopup linkid={linkgiverlink.Link_Id}
-                    handleClose={togglepublish}
+                    handleClose={togglepublish} linkgivereachlink={linkgiverlink}
                 />}
             </div>
 

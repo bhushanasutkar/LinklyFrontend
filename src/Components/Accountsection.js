@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Home from './Home';
 const Accountsection = (props) => {
   
 
@@ -13,7 +13,9 @@ const Accountsection = (props) => {
             <p className='text-end'>{localStorage.getItem('email')}</p>
           </div>
 
-          <img src={localStorage.getItem('imgurl')} className="img-rounded imagesizeuser mx-2 " alt="Cinque Terre"></img>
+          <img src={(localStorage.getItem('imgurl'))?localStorage.getItem('imgurl'):'profile_link.svg'} className="img-rounded imagesizeuser mx-2 " alt="NA"></img>
+          <Home />
+
         </div>
       </div>
 
