@@ -7,21 +7,23 @@ import Linkcontext from "../contextApi/Linkcontext";
 import { useEffect } from "react";
 
 const Links = () => {
-  
-  const { size,setsize,Link, setLink,getallLinks,setuserid } = useContext(Linkcontext);
-  const setsorted=()=>{
+ 
+  const { size,setsize,Link,getallLinks,setuserid } = useContext(Linkcontext);
+  // const setsorted=()=>{
     
-    console.log("hey")
-    console.log(Link);
-    setsize(10);
-    var sdelect = document.getElementById('sortlinkvalut').value;
-    console.log(sdelect);
-    setuserid();
-      // setLink([])
-      getallLinks(sdelect);
-      console.log("Hi")
-      console.log(Link)
-  }
+  //   console.log("hey")
+  //   // console.log(Link);
+  //   setsize(10);
+  //   var sdelect = document.getElementById('sortlinkvalut').value;
+  //   console.log(sdelect);
+  //   setuserid();
+  //   setLink(Link.splice(0,Link.length));
+  //   console.log(Link)
+  //    console.log(sdelect);
+  //     getallLinks(sdelect);
+  //     console.log("Hi")
+  //     console.log(Link)
+  // }
   // const setfilter=()=>{
   //   var sdelect = document.getElementById('sortlinkvaludgft').value;
   //   console.log(sdelect);
@@ -32,8 +34,9 @@ const Links = () => {
     setuserid();
     
     
-      var sdelect = document.getElementById('sortlinkvalut').value;
-      getallLinks(sdelect);
+      // var sdelect = document.getElementById('sortlinkvalut').value;ona
+      const uid="Link_Id"
+      getallLinks(uid);
     
     // eslint-disable-next-line
   }, [size]);
@@ -54,7 +57,7 @@ const Links = () => {
     <>
     <div className="container d-flex flex-row justify-content-end pt-3" style={{ backgroundColor: '#f7f8ff', height: '60px' }}>
           <h5 style={{ width: 'inherit', marginLeft: '40px' }}><strong>Grab your backlinks now!</strong></h5>
-          <div className="container  d-flex flex-row justify-content-end " style={{ marginRight: '80px', backgoundColor: '' }}>
+          {/* <div className="container  d-flex flex-row justify-content-end " style={{ marginRight: '80px', backgoundColor: '' }}>
             <img className="imageicon " style={{ marginTop: '4px', cursor: 'pointer' }} src="sort_icon.svg" alt="" />
             <select  style={{
                 height: '1.5rem',
@@ -87,7 +90,7 @@ const Links = () => {
                 <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) desc"> Increasing Price</option>
                 <option value="GREATEST(Price_gb_usd,Price_gbcbd_usd,Price_LinkInsertion_usd,Price_LinkInsertioncbd_usd) asc"> Decreasing Price</option>
               </select>
-          </div>
+          </div> */}
         </div>
 
       <div className="">

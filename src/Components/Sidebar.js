@@ -64,7 +64,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                     <hr />
-                    <div>
+                    {/* <div>
                         <div className="container  Navhover  mt-4  d-flex flex-row justify-content-start align-items-center" style={{ backgroundColor: `${location.pathname === '/s' ? 'rgb(215, 240, 240)' : "rgb(45, 45, 45)"}` }}>
                             <img className="Icon" src="left_settings.svg" alt="" />
                             <Link className="  px-3  Navtext" to="/backlinkvault" style={{ color: `${location.pathname === '/orderdashboard' ? 'rgb(45, 45, 45)' : "rgb(215, 240, 240)"}` }}>Settings</Link>
@@ -74,7 +74,7 @@ const Sidebar = () => {
 
                             <Link className="  px-3  Navtext" to="/backlinkvault" style={{ color: `${location.pathname === '/orderdashboard' ? 'rgb(45, 45, 45)' : "rgb(215, 240, 240)"}` }}>Subscription</Link>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="container d-flex justify-content-center align-items-center my-5">
                         <button type="button" style={{ width: 'inherit' }} className="btn btn-primary text-center">Add New Link</button>
                     </div>

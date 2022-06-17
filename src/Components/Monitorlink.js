@@ -28,10 +28,12 @@ const Monitorlink = () => {
     });
     // console.log(response);
     const json = await response.json();
+   
     console.log("Inside handlecldfgfick")
 
     // console.log(json.Orderids);
     setOrderidlist(json.Orderids);
+    console.log(Orderidlist);
     Orderidlist.forEach(element => {
       // console.log(element.order_id);
     });

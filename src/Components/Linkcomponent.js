@@ -114,7 +114,7 @@ const Linkcomponent = (props) => {
       <div id={linkid} className=" my-4">
         <div className="row mx-0 px-2" style={{ marginBottom: '0px' }}>
           <div className="col-sm container  justify-content-center align-items-center   d-flex flex-row">
-            <img className='mr-2 imageicon' src={(icon) ? icon : "image_link.svg"} alt="NA" />
+            <img className='mr-2 imageicon' src={(icon) ? icon : "globe_icon.svg"} alt="NA" />
             <div className='pr-1' style={{ width: '113px' }}>{link.Name}</div>
             <a href={`https://${link.Url}`} rel="noopener noreferrer" target="_blank">
               <img src="new_window.svg" className="imageicon " style={{ marginTop: '0px' }} on alt="" />

@@ -28,7 +28,8 @@ body {
   width: 20%;
   background-color: rgb(45, 45, 45);
   font-family: 'Mulish', sans-serif;
- 
+  /* position: fixed; */
+  /* height: 100vh; */
 
 }
 body {

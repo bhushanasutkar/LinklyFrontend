@@ -10,8 +10,8 @@ const Orderedlink = (props) => {
             
                 <div className=" text-center text-muted " style={{ width: '9rem' }}>{`#${orderedlink.order_id}`}</div>
                 <div className=" text-center" style={{ width: '9rem' }}><strong>{`${orderedlink.link_added_on}`}</strong></div>
-                <div className=" mx-1 px-1" style={{ width: '18rem',textAlign: 'center' }}><strong>{orderedlink.source_link}</strong></div>
-                <div className=" mx-1  px-1" style={{ width: '18rem',textAlign: 'center' }}><strong>{orderedlink.target_link}</strong></div>
+                <div className=" mx-1 px-1" style={{ width: '18rem',textAlign: 'center', wordWrap:' break-word' }}><strong>{orderedlink.source_link}</strong></div>
+                <div className=" mx-1  px-1" style={{ width: '18rem',textAlign: 'center', wordWrap:' break-word' }}><strong>{orderedlink.target_link}</strong></div>
                 <div className="">
                     <div className=" container d-flex flex-row justify-content-between  ">
                         <div className='mr-2' >Link Cost</div>

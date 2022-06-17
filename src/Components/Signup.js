@@ -65,5 +65,5 @@ const Signup = () => {
         </>
     );
 };
-// React_App_host = 'http://localhost:8000'
+// React_App_host =' https://linkly-backend-stg.herokuapp.com'
 export default Signup;

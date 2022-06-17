@@ -36,7 +36,7 @@ const Linkgivercomponent = (props) => {
                 <div className='container d-flex flex-row'>
                     <div className="container  d-flex flex-column">
                         <div className="container mt-3 d-flex flex-row">
-                            <img src="https://logo.clearbit.com/microsoft.com" className="imageicon mx-1 " style={{ marginTop: '4px' }} alt=""></img>
+                            <img src={(linkgiverlink.Icon) ? linkgiverlink.Icon : "globe_icon.svg"}  className="imageicon mx-1 " style={{ marginTop: '4px' }} alt=""></img>
                             <div className='mx-1' style={{ width: '' }}>{linkgiverlink.Name}</div>
                             <a href={`https://${linkgiverlink.Url}`} rel="noopener noreferrer" target="_blank">
 

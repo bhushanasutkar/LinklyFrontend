@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Feedbackpopup, Linkexhangepopup, Metadatapopup, Addlinktomonitorpopup, Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup, Acceptlinkexchangepopup, Guestblogpopup, Linkinsertionpopup, Savelogindetailpopup } from './Popups';
+import { Feedbackpopup, Linkexhangepopup, Metadatapopup, Emailpopup, Addlinktomonitorpopup, Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup, Acceptlinkexchangepopup, Guestblogpopup, Linkinsertionpopup, Savelogindetailpopup } from './Popups';
 const AcceptedLinks = (props) => {
 
   const { acceptedlink } = props;
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenExchange, setIsOpenExchange] = useState(false);
   const [isOpenblog, setIsOpenblog] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
   const [isOpeninsertion, setIsOpeninsertion] = useState(false);
   const [issavelogin, setissavelogin] = useState(false);
   const [isOpenmetainfo, setIsOpenmetainfo] = useState(false);
@@ -47,7 +48,7 @@ const AcceptedLinks = (props) => {
     //   }
     // }
 
-    
+
   }
 
   const getselectedValues = async () => {
@@ -85,6 +86,9 @@ const AcceptedLinks = (props) => {
   const toggleExchange = () => {
     setIsOpenExchange(!isOpenExchange);
   }
+  const toggleEmail = () => {
+    setIsEmail(!isEmail);
+  }
   const toggleMetainfo = () => {
     setIsOpenmetainfo(!isOpenmetainfo);
   }
@@ -95,7 +99,7 @@ const AcceptedLinks = (props) => {
     console.log("Hi");
     setissavelogin(!issavelogin);
   }
-  const openurl=()=>{
+  const openurl = () => {
     console.log("hi")
     window.open(acceptedlink.registration_link, '_blank');
   }
@@ -106,28 +110,32 @@ const AcceptedLinks = (props) => {
 
   return (
     <>
-      
+
       <div className='border border-secondary  mb-4 mx-5 ' style={{ backgroundColor: 'white', borderRadius: '10px' }}>
 
         <div className='container d-flex flex-row'>
           <div className="container  my-3  d-flex flex-column">
             <div className="container mt-2 d-flex flex-row">
-              <img src="https://logo.clearbit.com/microsoft.com" className="imageicon mx-1 " style={{ marginTop: '4px' }} alt=""></img>
+              <img src={(acceptedlink.Icon) ? acceptedlink.Icon : "globe_icon.svg"} className="imageicon mx-1 " style={{ marginTop: '4px' }} alt=""></img>
               <div className='mx-1' style={{ width: '' }}>{acceptedlink.Name}</div>
               <a href={`https://${acceptedlink.Url}`} rel="noopener noreferrer" target="_blank">
 
                 <img src="new_window.svg" className="imageicon ml-1" style={{ marginTop: '0px', cursor: 'pointer' }} on alt="" />
               </a>
             </div>
-            { acceptedlink.content_type && <div className=" d-flex flex-row mt-4 ">
+              <div className=" d-flex flex-row mt-4 ">
+              <div className='' style={{ width: 'max-content' }}>Order Id</div>
+              <div className='text-center ' style={{ width: '7rem', height: '1.75rem', marginLeft: 'auto' }}><strong> {acceptedlink.order_id}</strong></div>
+            </div>
+            {acceptedlink.content_type && <div className=" d-flex flex-row mt-2 ">
               <div className='' style={{ width: 'max-content' }}>Content Req.</div>
               <div className=' text-center' style={{ width: '7rem', height: '1.75rem', marginLeft: 'auto' }}><strong> {acceptedlink.content_type}</strong></div>
             </div>}
-            <div className=" d-flex flex-row mt-3 ">
+            <div className=" d-flex flex-row mt-2 ">
               <div className='mr-2 '>Work Req.</div>
               <div className=' text-center' style={{ width: '7rem', height: '1.75rem', marginLeft: 'auto' }}><strong>{acceptedlink.Work_Required}</strong></div>
             </div>
-            <div className="container d-flex flex-row mt-3 justify-content-center ">
+            <div className="container d-flex flex-row mt-1 justify-content-center ">
               <p onClick={toggleMetainfo} className='text-center' style={{ color: 'rgb(75, 44, 169)', cursor: 'pointer' }}><strong>View all meta info</strong></p>
             </div>
           </div>
@@ -189,27 +197,27 @@ const AcceptedLinks = (props) => {
           </div>
           <div className="container my-3 d-flex flex-column">
             <div className='py-2 mb-2 font-weight-bold'>Useful Links</div>
-            <div className=" d-flex flex-row justify-content-between  my-1 ">
+            {acceptedlink.how_to_get_link && <div className=" d-flex flex-row justify-content-between  my-1 ">
               <div className=''>How to get that link</div>
               <a href={`https://${acceptedlink.how_to_get_link}`} rel="noopener noreferrer" target="_blank">
-                <img src="new_window.svg" className="imageicon mr-3  " style={{ marginTop: '1px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3  " style={{ marginTop: '1px', marginRight: '20px', cursor: 'pointer', paddingLeft: '2px' }} on alt="" />
 
               </a>
-            </div>
-            <div className=" d-flex flex-row justify-content-between mt-2 mb-1 ">
+            </div>}
+            {acceptedlink.Condition &&<div className=" d-flex flex-row justify-content-between mt-2 mb-1 ">
               <div className='' >Condition  for backlink</div>
               <a href={`https://${acceptedlink.Condition}`} rel="noopener noreferrer" target="_blank">
 
-                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '-2px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '-2px', marginRight: '20px', cursor: 'pointer', paddingLeft: '2px' }} on alt="" />
               </a>
-            </div>
-            <div className=" d-flex flex-row justify-content-between my-1">
+            </div>}
+            {acceptedlink.Content_Guidelines && <div className=" d-flex flex-row justify-content-between my-1">
               <div className='py-2' >Content Guidelines</div>
               <a href={`https://${acceptedlink.Content_Guidelines}`} rel="noopener noreferrer" target="_blank">
 
-                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '11px', marginRight: '20px', cursor: 'pointer', paddingLeft:'2px' }} on alt="" />
+                <img src="new_window.svg" className="imageicon mr-3 " style={{ marginTop: '11px', marginRight: '20px', cursor: 'pointer', paddingLeft: '2px' }} on alt="" />
               </a>
-            </div>
+            </div>}
           </div>
           <div className="container my-3 d-flex flex-column">
             <div className=' font-weight-bold mt-2'>Next Step</div>
@@ -217,12 +225,12 @@ const AcceptedLinks = (props) => {
 
           </div>
           <div className="container my-3 d-flex flex-column justify-content-between ">
-            {acceptedlink.Link_category === 'FREE' &&acceptedlink.contact_method === 'Email' && <button type="button" onClick={toogleSavelogindetail} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', color:'white', height: ' 3.5rem' }}>{`Send Email`}</button>}
-            {acceptedlink.Link_category === 'FREE'&& acceptedlink.status === 'Submitted - Waiting for Approval (from Link Giver)'  && acceptedlink.contact_method === 'Link' &&  <button onClick={toogleSavelogindetail} type="button"  class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: 'white',color:'#4b2ca9', height: ' 3.5rem' }}>{`Save Login Detail`}</button>}
-            {acceptedlink.Link_category === 'FREE'&& acceptedlink.status !== 'Submitted - Waiting for Approval (from Link Giver)'  && acceptedlink.contact_method === 'Link' &&  <button onClick={openurl} type="button"  class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Submit Here`}</button>}
+            {acceptedlink.Link_category === 'EXCHANGE' && <button type="button" onClick={toggleExchange} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Request`}</button>}
+            {acceptedlink.Link_category === 'FREE' && acceptedlink.contact_method === 'Email' && <button type="button" onClick={toggleEmail} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', color: 'white', height: ' 3.5rem' }}>{`Send Email`}</button>}
+            {acceptedlink.Link_category === 'FREE' && acceptedlink.status === 'Link Created' && acceptedlink.contact_method === 'Link' && <button onClick={toogleSavelogindetail} type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: 'white', color: '#4b2ca9', height: ' 3.5rem' }}>{`Save Login Detail`}</button>}
+            {acceptedlink.Link_category === 'FREE' && acceptedlink.status !== 'Link Created' && acceptedlink.contact_method === 'Link' && <button onClick={openurl} type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Submit Here`}</button>}
             {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Guest Blog' && <button type="button" onClick={toggleGuestblogPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Guest Blog`}</button>}
             {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Link Insertion' && <button type="button" onClick={toogleinsertionPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Content`}</button>}
-            {acceptedlink.Link_category === 'EXCHANGE' && <button type="button" onClick={toggleExchange} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Request`}</button>}
             <div>
               <div className="" >Current Status</div>
               {/* id={`${index}-statusvalueid`} */}
@@ -233,14 +241,14 @@ const AcceptedLinks = (props) => {
                 borderRadius: '9px', marginTop: '3px', cursor: 'pointer'
               }}>
                 <option value="">Status </option>
-                <option selected={setstatus==='Link Accepted (by Link Taker)'} value="Link Accepted (by Link Taker)" >Link Accepted (by Link Taker)</option>
-                <option  selected={setstatus==='Rejected (by Link Giver)'}  value="Rejected (by Link Giver)">Rejected (by Link Giver) </option>
-                <option  selected={setstatus==='Rejected (by Link Taker)'}  value="Rejected (by Link Taker)">Rejected (by Link Taker)</option>
-                <option  selected={setstatus==='In progress'}  value="In progress">In progress</option>
-                <option  selected={setstatus==='Re-work'}  value="Re-work">Re-work</option>
-                <option  selected={setstatus==='Submitted - Waiting for Approval (from Link Giver)'}  value="Submitted - Waiting for Approval (from Link Giver)">Submitted - Waiting for Approval (from Link Giver) </option>
-                <option  selected={setstatus==='Re-Submitted after Re-work - Waiting for Approval (from Link Giver)'}  value="Re-Submitted after Re-work - Waiting for Approval (from Link Giver)">Re-Submitted after Re-work - Waiting for Approval (from Link Giver)</option>
-                <option  selected={setstatus==='Link Created'}  value="Link Created">Link Created</option>
+                <option selected={setstatus === 'Link Accepted (by Link Taker)'} value="Link Accepted (by Link Taker)" >Link Accepted (by Link Taker)</option>
+                <option selected={setstatus === 'Rejected (by Link Giver)'} value="Rejected (by Link Giver)">Rejected (by Link Giver) </option>
+                <option selected={setstatus === 'Rejected (by Link Taker)'} value="Rejected (by Link Taker)">Rejected (by Link Taker)</option>
+                <option selected={setstatus === 'In progress'} value="In progress">In progress</option>
+                <option selected={setstatus === 'Re-work'} value="Re-work">Re-work</option>
+                <option selected={setstatus === 'Submitted - Waiting for Approval (from Link Giver)'} value="Submitted - Waiting for Approval (from Link Giver)">Submitted - Waiting for Approval (from Link Giver) </option>
+                <option selected={setstatus === 'Re-Submitted after Re-work - Waiting for Approval (from Link Giver)'} value="Re-Submitted after Re-work - Waiting for Approval (from Link Giver)">Re-Submitted after Re-work - Waiting for Approval (from Link Giver)</option>
+                <option selected={setstatus === 'Link Created'} value="Link Created">Link Created</option>
               </select>
             </div>
 
@@ -264,7 +272,10 @@ const AcceptedLinks = (props) => {
                 handleClose={toogleinsertionPopup} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}
               />}
               {isOpenExchange && <Linkexhangepopup
-                handleClose={toggleExchange} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}
+                handleClose={toggleExchange} acceptedlinkname={acceptedlink.Name} acceptedlink={acceptedlink} linkid={acceptedlink.Link_Id}
+              />}
+              {isEmail && <Emailpopup
+                handleClose={toggleEmail} acceptedlinkname={acceptedlink.Name} acceptedlink={acceptedlink} linkid={acceptedlink.Link_Id}
               />}
               {isOpenblog && <Guestblogpopup
                 handleguestblogClose={toggleGuestblogPopup} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}

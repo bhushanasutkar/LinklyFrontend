@@ -22,6 +22,7 @@ const Feedbackpopup = props => {
       body: JSON.stringify({Linkid,UserId, input1, input2 }),
     });
     console.log(response);
+    props.handleClose();
 
 
   }
@@ -48,7 +49,7 @@ const Feedbackpopup = props => {
               <option value="Site does not accept submissions anymore">Site does not accept submissions anymore</option>
               <option value="Category is wrong">Category is wrong</option>
               <option value="Language is wrong">Language is wrong</option>
-              <option value="Instructions given are not correc,t/understandable">Instructions given are not correc,t/understandable</option>
+              <option value="Instructions given are not correc,t/understandable">Instructions given are not correct/understandable</option>
               <option value="Other">Other</option>
             </select>
           </div>
@@ -155,21 +156,36 @@ const Linkexhangepopup = props => {
 
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
+  const {acceptedlink}=props;
   const Linkid= props.linkid
   const handleclick= async ()=>{
     console.log("Inside handleclick")
     const input1 = document.getElementById("exampleFormControlInput2").value
     const input2 = document.getElementById("exampleFormControlInput3").value; 
     console.log(input1,input2);
+    const email=acceptedlink.Email;
+    console.log(email);
+    const getemail = await fetch(`${host}/v1/userlink/email`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization:  "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({email}),
+    });
+    const parseddata = await getemail.json();
+    console.log(parseddata.details.uid);
+    const linkgiverid=parseddata.details.uid
     const response = await fetch(`${host}/v1/userlink/exchange_request`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         authorization: "Bearer " + localStorage.getItem("token"),
       },
-      body: JSON.stringify({Linkid,UserId, input1, input2 }),
+      body: JSON.stringify({Linkid,UserId, input1, input2 ,linkgiverid}),
     });
     console.log(response);
+    props.handleClose();
 
 
   }
@@ -243,8 +259,14 @@ const Guestblogpopup = props => {
        },
        body: JSON.stringify({Linkid,UserId, input1, input2,linkgiverid }),
      });
-     console.log(response);
      props.handleguestblogClose();
+     if(response.status===200){
+      alert("Submitted Successfully!!")
+     }
+     else{
+      alert("Error occured couldn't submit!! ")
+     }
+
    }
   return (
     <div className="popup-box">
@@ -300,7 +322,7 @@ const Linkinsertionpopup = props => {
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
      console.log(response);
- 
+     props.handleClose();
  
    }
   return (
@@ -342,7 +364,7 @@ const Addlinktomonitorpopup = props => {
  
 const {Orderidlist} = useContext(Linkcontext);
 console.log(Orderidlist);
-const obj={order_id:"Select OrderID"}
+const obj={order_id:"Select OrderID",Name:"",link_added_on:""}
 console.log(Orderidlist);
 if( Orderidlist!=null && Orderidlist.length>0 &&  Orderidlist[0].order_id!=="Select OrderID"){
 Orderidlist.unshift(obj);
@@ -420,7 +442,7 @@ We check every week to make sure the ‘Source URLs’ have your ‘Target URL�
             }}>
       
               {Orderidlist.map((element) => (
-                <option  value={`${element.order_id}`}>{element.order_id}</option>
+                <option  value={`${element.order_id}`}>{element.Name +" " + element.order_id+" " +element.link_added_on}</option>
               ))}
            
             </select>
@@ -484,7 +506,7 @@ const Publishlinkpopup = props => {
        body: JSON.stringify({Linkid,UserId, input1 }),
      });
      console.log(response);
- 
+     props.handleClose();
  
    }
   return (
@@ -555,7 +577,7 @@ const Requestreworkpopup = props => {
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
      console.log(response);
- 
+     props.handleClose();
  
    }
   return (
@@ -636,6 +658,7 @@ const Rejectguestblogpopup = props => {
        body: JSON.stringify({Linkid,UserId, input1, input2 }),
      });
      console.log(response);
+     props.handleClose();
  
  
    }
@@ -704,14 +727,15 @@ const Rejectguestblogpopup = props => {
 const Acceptlinkexchangepopup = props => {
   const UserId = localStorage.getItem('userid');
   // const Linkid= props.Linkid
+  const {linkgivereachlink}= props;
   const Linkid= props.linkid
   const handleclick= async ()=>{
     console.log("Inside handleclick")
-    const input1 = document.getElementById("exampleFormControlInput14").value
+    const input1 = document.getElementById("exampleFormControlInput46").value
     // const input2 = document.getElementById("exampleFormControlInput3").value; 
     console.log(input1);
-    const response = await fetch(`${host}/v1/userlink/exchange_request`, {
-      method: "PUT",
+    const response = await fetch(`${host}/v1/userlink/acceptrequest`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization:  "Bearer " + localStorage.getItem("token"),
@@ -719,6 +743,7 @@ const Acceptlinkexchangepopup = props => {
       body: JSON.stringify({Linkid,UserId, input1 }),
     });
     console.log(response);
+    props.handleClose();
 
 
   }
@@ -737,7 +762,111 @@ const Acceptlinkexchangepopup = props => {
         <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
           <div className="px-5 ">
             <div class=" px-3 form-group ">
-              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput1">List of 3 topics</label>
+              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput46">List of 3 topics</label>
+              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
+            </div>
+          </div>
+          <div className="px-5 ">
+            <button type="button" class=" mt-2 mx-3 rounded-lg btn btn-primary text-light " onClick={handleclick} style={{ backgroundColor: '#4b2ca9', fontWeight: '500', height: ' 3rem', width: '-webkit-fill-available',  fontSize: 'larger' }}>Confirm Link Exchange Request</button>
+            <div style={{ fontSize: '0.75rem' }} className="mx-4 mt-2 px-2 text-muted">We will automatically add your meta info like traffic & DA when sending the link exchange request.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+const Emailpopup = props => {
+  const UserId = localStorage.getItem('userid');
+  // const Linkid= props.Linkid
+  const {acceptedlink}= props;
+  const Linkid= props.linkid
+  const handleclick= async ()=>{
+    console.log("Inside handleclick")
+    const input1 = document.getElementById("exampleFormControlInput466").value
+    // const input2 = document.getElementById("exampleFormControlInput3").value; 
+    console.log(input1);
+    const response = await fetch(`${host}/v1/userlink/sendemail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization:  "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({Linkid,UserId, input1 }),
+    });
+    console.log(response);
+    props.handleClose();
+
+
+  }
+
+  return (
+    <div className="popup-box">
+      <div className="boxx" style={{width: '37%', height: '30rem',marginLeft: '40rem', marginTop: 'calc(100vh - 90vh - 0px)'}}>
+        <div className="container d-flex flex-row justify-content-between" style={{ backgroundColor: '#363740', fontSize: '1.6rem' }}>
+          <div className="text-light my-4">Accept Link Exchange</div>
+          <span className="text-muted px-3 pb-2 " style={{ fontSize: 'xxx-large' ,cursor:'pointer'}} onClick={props.handleClose}>x</span>
+        </div>
+        <div className=" mb-4 mt-4 container" style={{ fontWeight: '500' }}>
+          <div className="px-2 text-center">Send Email </div>
+          <div className="px-2 text-center">Let us know and we will fix it in 24 hours.</div>
+        </div>
+        <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+          <div className="px-5 ">
+            <div class=" px-3 form-group ">
+              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput466">Email Content</label>
+              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please insert the email content"></textarea>
+            </div>
+          </div>
+          <div className="px-5 ">
+            <button type="button" class=" mt-2 mx-3 rounded-lg btn btn-primary text-light " onClick={handleclick} style={{ backgroundColor: '#4b2ca9', fontWeight: '500', height: ' 3rem', width: '-webkit-fill-available',  fontSize: 'larger' }}>Send Email</button>
+            <div style={{ fontSize: '0.75rem' }} className="mx-4 mt-2 px-2 text-muted">We will automatically add your meta info like traffic & DA when sending the link exchange request.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+const Rejectlinkexchangepopup = props => {
+  const UserId = localStorage.getItem('userid');
+  // const Linkid= props.Linkid
+  const {linkgivereachlink}= props;
+  const Linkid= props.linkid
+  const handleclick= async ()=>{
+    console.log("Inside handleclick")
+    const userid=linkgivereachlink.User_ID;
+    const linkgiverid=linkgivereachlink.link_giver_id;
+    const input1 = document.getElementById("exampleFormControlInput45").value
+    // const input2 = document.getElementById("exampleFormControlInput3").value; 
+    console.log(input1);
+    const response = await fetch(`${host}/v1/userlink/rejectrequest`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization:  "Bearer " + localStorage.getItem("token"),
+      },
+      body: JSON.stringify({Linkid,UserId, input1,linkgiverid }),
+    });
+    console.log(response);
+    props.handleClose();
+
+
+  }
+
+  return (
+    <div className="popup-box">
+      <div className="boxx" style={{width: '37%', height: '30rem',marginLeft: '40rem', marginTop: 'calc(100vh - 90vh - 0px)'}}>
+        <div className="container d-flex flex-row justify-content-between" style={{ backgroundColor: '#363740', fontSize: '1.6rem' }}>
+          <div className="text-light my-4">Accept Link Exchange</div>
+          <span className="text-muted px-3 pb-2 " style={{ fontSize: 'xxx-large' ,cursor:'pointer'}} onClick={props.handleClose}>x</span>
+        </div>
+        <div className=" mb-4 mt-4 container" style={{ fontWeight: '500' }}>
+          <div className="px-2 text-center">Something isn’t right with the information we have shown ? </div>
+          <div className="px-2 text-center">Let us know and we will fix it in 24 hours.</div>
+        </div>
+        <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
+          <div className="px-5 ">
+            <div class=" px-3 form-group ">
+              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput45">List of 3 topics</label>
               <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
             </div>
           </div>
@@ -802,6 +931,7 @@ const Savelogindetailpopup = props => {
        body: JSON.stringify({Linkid,UserId, username,password,notes,fileimg }),
      });
      console.log(response); 
+     props.handleClose();
    }
     return (
     <div className="popup-box">
@@ -826,7 +956,7 @@ const Savelogindetailpopup = props => {
           <div className="px-5  ">
             <div class=" px-3  ">
               <label className="mb-1" htmlFor="exampleFormControlInput1">Password</label>
-              <input style={{ height: '3rem', fontSize: 'smaller' }} type="email" class="form-control  border border-secondary " id="exampleFormControlInput21" placeholder="Status" />
+              <input style={{ height: '3rem', fontSize: 'smaller' }} type="email" class="form-control  border border-secondary " id="exampleFormControlInput21" placeholder="Place password" />
               <div className=" text-muted pl-3 pr-5 mt-1 " style={{ fontSize: '0.75rem' }}>Password for logging in.</div>
             </div>
           </div>
@@ -867,6 +997,8 @@ export {
   Requestreworkpopup,
   Rejectguestblogpopup,
   Acceptlinkexchangepopup,
+  Emailpopup,
+  Rejectlinkexchangepopup,
   Savelogindetailpopup,
 }
 
