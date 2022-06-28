@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from "react";
 import Linkcontext from "./../contextApi/Linkstate";
-import { Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup,Acceptlinkexchangepopup } from './Popups';
+import { Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup,Acceptlinkexchangepopup, Rejectlinkexchangepopup } from './Popups';
 const Linkgivercomponent = (props) => {
     const { linkgiverlink } = props;
     const [isOpenrework, setIsOpenrework] = useState(false);
     const [isOpenreject, setIsOpenreject] = useState(false);
     const [isOpenpublish, setIsOpenpublish] = useState(false);
     const [isapprove, setisapprove] = useState(false);
+    const [isrejectexchange, setisrejectexchange ]= useState(false);
     // const {  getallacceptedLinks, setuserid } = useContext(Linkcontext);
     // useEffect(() => {
     //   setuserid();
@@ -28,6 +29,9 @@ const Linkgivercomponent = (props) => {
     }
     const toggleapprovce = () => {
         setisapprove(!isapprove);
+    }
+    const tooglerejectexchange = () => {
+        setisrejectexchange(!isrejectexchange);
     }
     return (
         <>
@@ -95,6 +99,9 @@ const Linkgivercomponent = (props) => {
                 />}
                 {isapprove && <Acceptlinkexchangepopup linkid={linkgiverlink.Link_Id}
                     handleClose={toggleapprovce}  linkgivereachlink={linkgiverlink}
+                />}
+                {isrejectexchange && <Rejectlinkexchangepopup linkid={linkgiverlink.Link_Id}
+                    handleClose={tooglerejectexchange}  linkgivereachlink={linkgiverlink}
                 />}
                 {isOpenreject && <Rejectguestblogpopup linkid={linkgiverlink.Link_Id}
                     handleClose={togglereject} linkgivereachlink={linkgiverlink}

@@ -32,11 +32,8 @@ const Links = () => {
   // }
   useEffect(() => {
     setuserid();
-    
-    
-      // var sdelect = document.getElementById('sortlinkvalut').value;ona
-      const uid="Link_Id"
-      getallLinks(uid);
+    getallLinks();
+    console.log(size);
     
     // eslint-disable-next-line
   }, [size]);

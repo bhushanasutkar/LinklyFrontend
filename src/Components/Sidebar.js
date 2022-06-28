@@ -32,7 +32,7 @@ const Sidebar = () => {
 
             {a && <div className="sidebar">
                 <Heading></Heading>
-                <div className="text-light text-start container class1">
+                <div className="text-light text-start container class1" style={{height:'33rem'}}>
                     <div>
                         <div className="container  Navhover   d-flex flex-row justify-content-start align-items-center" style={{ backgroundColor: `${location.pathname === '/backlinkvault' ? 'rgb(215, 240, 240)' : "rgb(45, 45, 45)"}` }}>
                             <img className="Icon" src="left_backlink_vault.svg" alt="" />

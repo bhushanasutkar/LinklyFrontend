@@ -27,6 +27,7 @@ const Login = () => {
       await logIn(email, password);
       
       navigate("/backlinkvault");
+      window.location.reload();
     } catch (err) {
       setError(err.message);
     }
@@ -41,6 +42,8 @@ const Login = () => {
       localStorage.setItem('userid',userdetail.user.uid);
       
       navigate("/backlinkvault");
+      window.location.reload();
+      
      
     } catch (error) {}
   };

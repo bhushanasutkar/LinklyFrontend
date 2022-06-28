@@ -77,12 +77,6 @@ const Backlinkmanager = () => {
         </div>
         <div className="container d-flex flex-row justify-content-end pt-3" style={{ backgroundColor: '#f7f8ff', height: '60px' }}>
           <h5 style={{ width: 'inherit', marginLeft: '40px' }}><strong>Grab your backlinks now!</strong></h5>
-          <div className="container  d-flex flex-row justify-content-end " style={{ marginRight: '80px', backgoundColor: '' }}>
-            <img className="imageicon " style={{ marginTop: '4px', cursor: 'pointer' }} src="sort_icon.svg" alt="" />
-            <div className='ml-1'><strong>Sort</strong></div>
-            <img className="imageicon ml-4 " style={{ marginTop: '4px', cursor: 'pointer' }} src="filter_icon.svg" alt="" />
-            <div className='ml-1'><strong>Filter</strong></div>
-          </div>
         </div>
 
         <Renderacceptedlink />

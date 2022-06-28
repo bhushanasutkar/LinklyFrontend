@@ -16,8 +16,10 @@ const Signup = () => {
         e.preventDefault();
         setError("");
         try {
-            await signUp(email, password);
+            const user=await signUp(email, password);
+            localStorage.setItem('userid',user.user.uid);
             navigate("/backlinkvault");
+            window.location.reload();
         } catch (err) {
             setError(err.message);
         }
@@ -65,5 +67,4 @@ const Signup = () => {
         </>
     );
 };
-// React_App_host =' https://linkly-backend-stg.herokuapp.com'
 export default Signup;

@@ -729,9 +729,11 @@ const Acceptlinkexchangepopup = props => {
   // const Linkid= props.Linkid
   const {linkgivereachlink}= props;
   const Linkid= props.linkid
+  const linkgiverid=linkgivereachlink.link_giver_id;
   const handleclick= async ()=>{
     console.log("Inside handleclick")
     const input1 = document.getElementById("exampleFormControlInput46").value
+    console.log(input1,linkgiverid);
     // const input2 = document.getElementById("exampleFormControlInput3").value; 
     console.log(input1);
     const response = await fetch(`${host}/v1/userlink/acceptrequest`, {
@@ -740,7 +742,7 @@ const Acceptlinkexchangepopup = props => {
         "Content-Type": "application/json",
         authorization:  "Bearer " + localStorage.getItem("token"),
       },
-      body: JSON.stringify({Linkid,UserId, input1 }),
+      body: JSON.stringify({Linkid,UserId, input1,linkgiverid }),
     });
     console.log(response);
     props.handleClose();
@@ -762,8 +764,8 @@ const Acceptlinkexchangepopup = props => {
         <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
           <div className="px-5 ">
             <div class=" px-3 form-group ">
-              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput46">List of 3 topics</label>
-              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
+              <label className="mb-1 ml-1 ">List of 3 topics</label>
+              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput46" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
             </div>
           </div>
           <div className="px-5 ">
@@ -835,7 +837,7 @@ const Rejectlinkexchangepopup = props => {
     console.log("Inside handleclick")
     const userid=linkgivereachlink.User_ID;
     const linkgiverid=linkgivereachlink.link_giver_id;
-    const input1 = document.getElementById("exampleFormControlInput45").value
+    const input1 = document.getElementById("exampleFormControlInput1444").value
     // const input2 = document.getElementById("exampleFormControlInput3").value; 
     console.log(input1);
     const response = await fetch(`${host}/v1/userlink/rejectrequest`, {
@@ -856,7 +858,7 @@ const Rejectlinkexchangepopup = props => {
     <div className="popup-box">
       <div className="boxx" style={{width: '37%', height: '30rem',marginLeft: '40rem', marginTop: 'calc(100vh - 90vh - 0px)'}}>
         <div className="container d-flex flex-row justify-content-between" style={{ backgroundColor: '#363740', fontSize: '1.6rem' }}>
-          <div className="text-light my-4">Accept Link Exchange</div>
+          <div className="text-light my-4">Reject Link Exchange</div>
           <span className="text-muted px-3 pb-2 " style={{ fontSize: 'xxx-large' ,cursor:'pointer'}} onClick={props.handleClose}>x</span>
         </div>
         <div className=" mb-4 mt-4 container" style={{ fontWeight: '500' }}>
@@ -867,11 +869,11 @@ const Rejectlinkexchangepopup = props => {
           <div className="px-5 ">
             <div class=" px-3 form-group ">
               <label className="mb-1 ml-1" htmlFor="exampleFormControlInput45">List of 3 topics</label>
-              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
+              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput1444" placeholder="Please list the 3 topics that would be an overlap between yours and their niche."></textarea>
             </div>
           </div>
           <div className="px-5 ">
-            <button type="button" class=" mt-2 mx-3 rounded-lg btn btn-primary text-light " onClick={handleclick} style={{ backgroundColor: '#4b2ca9', fontWeight: '500', height: ' 3rem', width: '-webkit-fill-available',  fontSize: 'larger' }}>Confirm Link Exchange Request</button>
+            <button type="button" class=" mt-2 mx-3 rounded-lg btn btn-primary text-light " onClick={handleclick} style={{ backgroundColor: '#4b2ca9', fontWeight: '500', height: ' 3rem', width: '-webkit-fill-available',  fontSize: 'larger' }}>Reject Link Exchange Request</button>
             <div style={{ fontSize: '0.75rem' }} className="mx-4 mt-2 px-2 text-muted">We will automatically add your meta info like traffic & DA when sending the link exchange request.</div>
           </div>
         </div>

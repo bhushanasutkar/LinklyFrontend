@@ -2,14 +2,20 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../contextApi/useAuthContext";
-
+import { useContext } from "react";
+import Linkcontext from "../contextApi/Linkcontext";
 const Home = () => {
+
+const { size,setsize,Link,setLink,getallLinks,setuserid,setflag } = useContext(Linkcontext);
   const { logOut, user } = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await logOut();
       localStorage.clear();
+      setLink(Link.splice(0,Link.length));
+      setflag(false);
+      console.log(Link);
+      await logOut();
       navigate("/");
     } catch (error) {}
   };

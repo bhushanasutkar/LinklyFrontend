@@ -33,9 +33,8 @@ export function UserAuthContextProvider({ children }) {
     const unsubscribe = onAuthStateChanged(auth, async (currentuser) => {
       // console.log(currentuser);
       if(currentuser){
-        // var token = await currentuser.getAuthResponse().id_token
-        
-        const token = await currentuser.getIdToken();
+        // console.log(currentuser);
+      const token = await currentuser.getIdToken();
         // console.log(token);
       localStorage.setItem("token", token);
       localStorage.setItem("email", currentuser.email);

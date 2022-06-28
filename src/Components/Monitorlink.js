@@ -8,9 +8,9 @@ import { useEffect } from "react";
 const Monitorlink = () => {
   const UserId = localStorage.getItem('userid');
   const { Orderidlist, setOrderidlist } = useContext(Linkcontext);
-  const [present, setpresent] = useState();
-  const [absent, setabsent] = useState()
-  const [notchecked, setnotchecked] = useState()
+  const [present, setpresent] = useState(0);
+  const [absent, setabsent] = useState(0)
+  const [notchecked, setnotchecked] = useState(0)
   // const host = "http://localhost:8000";
   // const host = "https://linkly-backend-stg.herokuapp.com";
   const host = process.env.React_App_host
@@ -51,10 +51,19 @@ const Monitorlink = () => {
       body: JSON.stringify({ UserId }),
     });
     const json = await response.json();
-    console.log(json.response[0].total)
-    setpresent(json.response[0].total)
-    setabsent(json.response[1].total)
-    setnotchecked(json.response[2].total)
+    // console.log();
+    json.response.forEach(element => {
+      if(element.status==='Present'){
+        setpresent(element.total)
+      }
+      if(element.status==='Absent'){
+        setabsent(element.total)
+      }
+      if(element.status==='Not Checked'){
+        setnotchecked(element.total)
+      }
+    });
+    
 
   };
   const { Monitooredlink, getallmonitoredlink, setuserid } = useContext(Linkcontext);
