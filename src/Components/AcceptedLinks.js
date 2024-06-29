@@ -103,6 +103,10 @@ const AcceptedLinks = (props) => {
     console.log("hi")
     window.open(acceptedlink.registration_link, '_blank');
   }
+  // function shouldcomponentUpdate(){
+
+  // }
+
   useEffect(() => {
     currentstatus();
   }, [])

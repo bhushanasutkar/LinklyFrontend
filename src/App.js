@@ -26,6 +26,7 @@ return (
   <>
   {/* <Login/> */}
   <UserAuthContextProvider>
+  
   <Linkstate>
         <Router>
         <div className=" setup ">
@@ -38,7 +39,7 @@ return (
               <Route exact path="/backlinkmonitor" element={<Backlinkmonitor />} />
               <Route exact path="/orderdashboard" element={<Orderdashboard />} />
               <Route exact path="/linkgiver" element={<Linkgiver />} />
-              <Route  exact path="/" element={<Login />} />
+              <Route exact path="/" element={<Login />} />
               <Route exact path="/signup" element={<Signup />} />
               <Route exact path="/home"element={<ProtectedRoute><Home /></ProtectedRoute>}/>
             </Routes>

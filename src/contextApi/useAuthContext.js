@@ -41,29 +41,7 @@ export function UserAuthContextProvider({ children }) {
       localStorage.setItem("name", currentuser.displayName);
       localStorage.setItem("imgurl", currentuser.photoURL);
     
-      }
-      
-      // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {      
-      //     // const user = currentuser;
-      //     console.log(currentuser);
-      //     const token = await auth.currentUser.getToken();
-      //     console.log("Hi");
-      //   localStorage.setItem("token", token);
-      //   setUser(currentuser.accessToken);
-        
-
-      
-    
-      // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {
-      //     // const user = currentuser;
-      //     await currentuser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-      //       // Send token to your backend via HTTPS
-      //       const token = idToken;
-      //       localStorage.setItem("token", token);
-      //       // ...
-      //     }).catch(function(error) {
-      //       // Handle error
-      //     });
+      }   
         
   });
     
@@ -85,3 +63,24 @@ export function UserAuthContextProvider({ children }) {
 export function useUserAuth() {
   return useContext(userAuthContext);
 }
+ // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {      
+      //     // const user = currentuser;
+      //     console.log(currentuser);
+      //     const token = await auth.currentUser.getToken();
+      //     console.log("Hi");
+      //   localStorage.setItem("token", token);
+      //   setUser(currentuser.accessToken);
+        
+
+      
+    
+      // const unsubscribe = onAuthStateChanged(auth,async (currentuser) => {
+      //     // const user = currentuser;
+      //     await currentuser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+      //       // Send token to your backend via HTTPS
+      //       const token = idToken;
+      //       localStorage.setItem("token", token);
+      //       // ...
+      //     }).catch(function(error) {
+      //       // Handle error
+      //     });

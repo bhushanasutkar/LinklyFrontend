@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext,useMemo,useRef} from "react";
 import Linkcontext from "../contextApi/Linkcontext";
 import { useEffect } from "react";
 import AcceptedLinks from "./AcceptedLinks";
@@ -17,7 +17,12 @@ const Renderacceptedlink = () => {
     // alert(acceptsize);
     setacceptsize(acceptsize + 5);
   }
+  
+  // const useMemoRef = useRef(0);
 
+  // const incrementUseMemoRef = () => useMemoRef.current++;
+
+  // const memoizedValue = useMemo(() => incrementUseMemoRef(), [acceptsize]);
 
   window.onscroll = function (ev) {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -32,7 +37,7 @@ const Renderacceptedlink = () => {
 
     <div style={{backgroundColor:'#f7f8ff'}}>
       {acceptedLinks.map((element) => {
-        return <AcceptedLinks key={element.Link_Id} acceptedlink={element} />;
+        return <AcceptedLinks key={element.Link_Id} acceptedlink={element}  />;
       })}
     </div>
     </>

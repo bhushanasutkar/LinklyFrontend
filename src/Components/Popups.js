@@ -815,8 +815,8 @@ const Emailpopup = props => {
         <div className="container" style={{ paddingLeft: '50px', paddingRight: '50px' }}>
           <div className="px-5 ">
             <div class=" px-3 form-group ">
-              <label className="mb-1 ml-1" htmlFor="exampleFormControlInput466">Email Content</label>
-              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput14" placeholder="Please insert the email content"></textarea>
+              <label className="mb-1 ml-1" htmlFor="">Email Content</label>
+              <textarea style={{ height: '5rem', fontSize: 'smaller',borderRadius:'9px' }} type="email" class="form-control border border-secondary " id="exampleFormControlInput466" placeholder="Please insert the email content"></textarea>
             </div>
           </div>
           <div className="px-5 ">

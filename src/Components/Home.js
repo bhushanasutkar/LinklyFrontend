@@ -11,11 +11,12 @@ const { size,setsize,Link,setLink,getallLinks,setuserid,setflag } = useContext(L
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      localStorage.clear();
+      await localStorage.clear();
       setLink(Link.splice(0,Link.length));
       setflag(false);
       console.log(Link);
       await logOut();
+      // await googleSignInClient.signOut();
       navigate("/");
     } catch (error) {}
   };

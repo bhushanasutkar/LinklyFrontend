@@ -2,6 +2,7 @@ import React from 'react'
 import Accountsection from '../Accountsection';
 import { useContext } from "react";
 import Linkcontext from "../../contextApi/Linkstate";
+import{Navigate} from 'react-router-dom';
 import Links from '../Links';
 const Backlinkvault = () => {
   // if( window.localStorage )
@@ -19,10 +20,14 @@ const Backlinkvault = () => {
   // }
  
   return (
+    <>
+    { !localStorage.getItem('token')?<Navigate to='/' />: 
     <div>
      <Accountsection heading={'Backlink Vault'}/>
      <Links></Links>  
     </div>
+}
+    </>
   )
   
 }

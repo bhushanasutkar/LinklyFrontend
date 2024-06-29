@@ -40,7 +40,7 @@ const Linkstate = (props) => {
     userid= localStorage.getItem('userid');
   }
   
-  const getallLinks = async () => {
+  const getallLinks = async (sortby) => {
     setuserid();
     // console.log(size);
     const firebaseUserIdToken = localStorage.getItem("token")
@@ -53,10 +53,13 @@ const Linkstate = (props) => {
         authorization:  "Bearer " + firebaseUserIdToken,
 
       },
-      body: JSON.stringify({ userid,size }),
+      body: JSON.stringify({ userid,size,sortby }),
     });
     const json = await response.json();
-    setLink(Link.concat( json.Links));
+    setLink( json.Links);
+    console.log("Linking");
+    console.log(Link);
+
     // setLink(json.Links);
 
   };

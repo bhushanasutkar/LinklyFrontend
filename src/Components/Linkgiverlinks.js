@@ -10,7 +10,7 @@ const Linkgiverlinks = () => {
   useEffect(() => {
     setuserid();
     getallLinkgiverlinks();
-    console.log("linkgiver ")
+    console.log("linkgiver");
     
     console.log(Linkgiverlinks);
     // eslint-disable-next-line

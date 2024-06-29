@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Details from './Details';
-import { useState } from 'react';
-
+import { useState,memo } from 'react';
+// import { memo } from 'react';
 
 const Linkcomponent = (props) => {
 
@@ -43,6 +43,7 @@ const Linkcomponent = (props) => {
     }
     else {
       const clearbitimageurl = `https://logo.clearbit.com/${imagename}.com`
+      console.log("Calling the url",imagename);
       fetch(clearbitimageurl).then(async function (ress) {
         const imageurl = ress.url
         const uploadedimageurl = await fetch(
@@ -95,12 +96,6 @@ const Linkcomponent = (props) => {
         });
        
       });;
-
-
-
-
-
-
     }
 
   };
@@ -110,11 +105,11 @@ const Linkcomponent = (props) => {
 
   return (
     <>
-
-      <div id={linkid} className=" my-4">
+      <div id={linkid}>
+      <div className=" my-4">
         <div className="row mx-0 px-2" style={{ marginBottom: '0px' }}>
           <div className="col-sm container  justify-content-center align-items-center   d-flex flex-row">
-            <img className='mr-2 imageicon' src={(icon) ? icon : "globe_icon.svg"} alt="NA" />
+            <img className='mr-2 imageicon' src={(link.Icon) ? link.Icon : "globe_icon.svg"} alt="NA" />
             <div className='pr-1' style={{ width: '113px' }}>{link.Name}</div>
             <a href={`https://${link.Url}`} rel="noopener noreferrer" target="_blank">
               <img src="new_window.svg" className="imageicon " style={{ marginTop: '0px' }} on alt="" />
@@ -209,10 +204,11 @@ const Linkcomponent = (props) => {
         </div>
       </div>
       <hr style={{ marginBottom: '1px', marginTop: '0px' }}></hr>
+      </div>
     </>
 
   )
 }
 
-export default Linkcomponent
+export default memo(Linkcomponent);
 

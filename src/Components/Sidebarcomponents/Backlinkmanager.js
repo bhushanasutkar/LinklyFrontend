@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from 'react';
 import Linkcontext from '../../contextApi/Linkcontext';
 import { useState } from 'react';
+import{Navigate} from 'react-router-dom';
 import { useContext } from 'react';
 import Renderacceptedlink from '../Renderacceptedlink';
 
@@ -46,7 +47,7 @@ const Backlinkmanager = () => {
 
     <>
 
-
+{ !localStorage.getItem('token')?<Navigate to='/' />: 
       <div >
         <Accountsection heading={'Backlink Manager'} />
         <div className="container d-flex flex-row cards1 justify-content-around  " style={{ backgroundColor: '#f7f8ff' }}>
@@ -81,7 +82,7 @@ const Backlinkmanager = () => {
 
         <Renderacceptedlink />
       </div>
-
+}
     </>
 
 

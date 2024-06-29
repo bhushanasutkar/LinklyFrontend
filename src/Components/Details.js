@@ -8,7 +8,7 @@ const Details = (props) => {
 
   const UserId = localStorage.getItem("userid");
 
-  const email = "bhushanasutkar0002@gmail.com";
+  // const email = "bhushanasutkar0002@gmail.com";
   // const host = "https://linkly-backend-stg.herokuapp.com";
   // const host = "http://localhost:8000";
   const host= process.env.React_App_host
@@ -29,9 +29,6 @@ const Details = (props) => {
     if (!response) {
       alert("ERROR OCCURED");
     }
-    if (!response) {
-      alert("ERROR OCCURED");
-    }
   };
   const handleaccept = async (e) => {
     e.preventDefault();
@@ -45,6 +42,7 @@ const Details = (props) => {
       body: JSON.stringify({ linkid, UserId, Archive }),
     });
     var x = document.getElementById(linkid);
+    console.log("the response is---------",response)
     x.style.display = "none";
     if (!response) {
       alert("ERROR OCCURED");

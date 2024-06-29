@@ -27,7 +27,7 @@ const Login = () => {
       await logIn(email, password);
       
       navigate("/backlinkvault");
-      window.location.reload();
+      // window.location.reload();
     } catch (err) {
       setError(err.message);
     }
@@ -37,12 +37,18 @@ const Login = () => {
     e.preventDefault();
     try {
       const googleAuthProvider = new GoogleAuthProvider();
+      // googleAuthProvider({
+      //   prompt: 'select_account'
+      // });
+      googleAuthProvider.setCustomParameters({
+        prompt: "select_account",
+     });
       const userdetail=await signInWithPopup(auth, googleAuthProvider);
       console.log(userdetail);
       localStorage.setItem('userid',userdetail.user.uid);
       
       navigate("/backlinkvault");
-      window.location.reload();
+      // window.location.reload();
       
      
     } catch (error) {}

@@ -11,14 +11,12 @@ import Heading from "./Sidebarcomponents/Heading";
 // import AddShoppingCart from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
 
-
-
 const Sidebar = () => {
     let location = useLocation();
     const [a, seta] = useState(1);
     useEffect(() => {
 
-        if (location.pathname === '/' || location.pathname === '/signup') {
+        if (location.pathname === '/'  ||location.pathname === '/signup') {
             seta(null);
         }
         else {
@@ -28,8 +26,6 @@ const Sidebar = () => {
 
     return (
         <>
-
-
             {a && <div className="sidebar">
                 <Heading></Heading>
                 <div className="text-light text-start container class1" style={{height:'33rem'}}>
