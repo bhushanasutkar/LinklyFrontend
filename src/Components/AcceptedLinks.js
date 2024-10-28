@@ -1,9 +1,14 @@
 import React from 'react'
+import ReactDOM from "react-dom"
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Feedbackpopup, Linkexhangepopup, Metadatapopup, Emailpopup, Addlinktomonitorpopup, Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup, Acceptlinkexchangepopup, Guestblogpopup, Linkinsertionpopup, Savelogindetailpopup } from './Popups';
+import { Feedbackpopup, Linkexhangepopup, Metadatapopup, Emailpopup, Addlinktomonitorpopup, Requestreworkpopup, Rejectguestblogpopup, Publishlinkpopup, Acceptlinkexchangepopup, Guestblogpopup, Linkinsertionpopup, Savelogindetailpopup} from './Popups';
+const PayPalButton = window.paypal.Buttons.driver("react", {
+  React,
+  ReactDOM
+});
 const AcceptedLinks = (props) => {
 
   const { acceptedlink } = props;
@@ -35,21 +40,73 @@ const AcceptedLinks = (props) => {
     setsetstatus(acceptedlink.status);
     var sdelect = document.getElementById(`statusvalueid-${acceptedlink.Link_Id}`);
 
-    // var items = sdelect.options;//Javascript get select all option
-    // // console.log(items)
-    // for (var i = 0; i < items.length; i++) {
-    //   if (items[i].value === data.response[0].status) {
-    //     console.log("Are equal")
-    //     console.log(items[i].value);
-    //     console.log(data.response[0].status)
-    //     console.log("setting selected true");
-    //     sdelect.options[i].selected = true;
-
-    //   }
-    // }
-
-
   }
+
+  const initialOptions = {
+    "client-id": "AZMnoWmzr41oLTVnDdJ3C-3hgLrhVb7__1nmHV53o_9X7RCt5dTSSFdxp6O_35_yEdYPskSPZu3kYCIy",
+    "buyer-country": "US",
+    currency: "USD",
+    "data-page-type": "product-details",
+    components: "buttons",
+     intent:"capture",
+};
+
+
+    const createOrder = (data) => {
+      // Order is created on the server and the order id is returned
+      const host = process.env.React_App_host;
+      const link_cost = acceptedlink.Cost_usd;
+      return fetch(`${host}/v1/userlink/getpaymentstatus`, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              // use the "body" param to optionally pass additional order information
+              // like product skus and quantities
+              body: JSON.stringify({
+                product:{
+                  description:"Link",
+                  cost:link_cost,
+                }
+              }),
+          })
+          .then((response) => {
+            console.log("Response is",response);
+            return response.json()})
+          .then((order) => {
+            console.log("Ordere is",order);
+            // console.log("Order is", order)
+          return  order.id
+          }) 
+  };
+
+  // body: JSON.stringify({
+  //   product:{
+  //     description:"Link",
+  //     cost:5
+  //   }
+  // }),
+  const onApprove = async (data) => {
+      // Order is captured on the server and the response is returned to the browser
+      console.log("Approvdrge",data);
+      const host = process.env.React_App_host
+      return fetch(`${host}/v1/userlink/capturepaymentstatus`, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                  orderID: data.orderID
+              })
+          })
+          .then((response) => response.json())
+
+
+  };
+
+ 
+    
+
 
   const getselectedValues = async () => {
     // var sdelect = document.getElementById("status");
@@ -95,6 +152,8 @@ const AcceptedLinks = (props) => {
   const toogleinsertionPopup = () => {
     setIsOpeninsertion(!isOpeninsertion);
   }
+
+
   const toogleSavelogindetail = () => {
     console.log("Hi");
     setissavelogin(!issavelogin);
@@ -114,7 +173,7 @@ const AcceptedLinks = (props) => {
 
   return (
     <>
-
+      <PayPalScriptProvider options={initialOptions}>
       <div className='border border-secondary  mb-4 mx-5 ' style={{ backgroundColor: 'white', borderRadius: '10px' }}>
 
         <div className='container d-flex flex-row'>
@@ -233,8 +292,38 @@ const AcceptedLinks = (props) => {
             {acceptedlink.Link_category === 'FREE' && acceptedlink.contact_method === 'Email' && <button type="button" onClick={toggleEmail} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', color: 'white', height: ' 3.5rem' }}>{`Send Email`}</button>}
             {acceptedlink.Link_category === 'FREE' && acceptedlink.status === 'Link Created' && acceptedlink.contact_method === 'Link' && <button onClick={toogleSavelogindetail} type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: 'white', color: '#4b2ca9', height: ' 3.5rem' }}>{`Save Login Detail`}</button>}
             {acceptedlink.Link_category === 'FREE' && acceptedlink.status !== 'Link Created' && acceptedlink.contact_method === 'Link' && <button onClick={openurl} type="button" class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Submit Here`}</button>}
-            {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Guest Blog' && <button type="button" onClick={toggleGuestblogPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Guest Blog`}</button>}
-            {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Link Insertion' && <button type="button" onClick={toogleinsertionPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem' }}>{`Send Content`}</button>}
+            {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Guest Blog' && <div>
+            <button type="button" onClick={toggleGuestblogPopup} class=" mt-3 pb-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem',width: '13rem' }}>{`Send Guest Blog`}</button>
+           <PayPalButton  fundingSource="paypal"  style={{
+                        shape: "pill",
+                        layout: "vertical",
+                        color: "silver",
+                        label: "buynow",
+                    }}    createOrder = {
+                      (data) => createOrder(data)
+                  }
+                  onApprove = {
+                      (data) => onApprove(data)
+                  }/>
+            </div>}
+            {acceptedlink.Link_category === 'PAID' && acceptedlink.content_type === 'Link Insertion' && <div>
+            
+            <button type="button" onClick={toogleinsertionPopup} class=" mt-3 rounded-lg btn btn-primary font-weight-bold" style={{ backgroundColor: '#4b2ca9', height: ' 3.5rem',width: '13rem'  }}>{`Send Content`}</button>  
+            <PayPalButton  fundingSource="paypal"  style={{
+                        shape: "pill",
+                        layout:"vertical",
+                        color: "silver",
+                        label: "buynow",
+                    }}    createOrder = {
+                      (data) => createOrder(data)
+                  }
+                  onApprove = {
+                      (data) => onApprove(data)
+                  }/>
+            </div>
+            }
+            
+            
             <div>
               <div className="" >Current Status</div>
               {/* id={`${index}-statusvalueid`} */}
@@ -287,14 +376,48 @@ const AcceptedLinks = (props) => {
               {isOpenmetainfo && <Metadatapopup
                 handleMetainfo={toggleMetainfo} acceptedlink={acceptedlink} acceptedlinkname={acceptedlink.Name} linkid={acceptedlink.Link_Id}
               />}
+           
             </div>
           </div>
 
         </div>
       </div>
+      </PayPalScriptProvider>
 
     </>
   )
 }
 
 export default AcceptedLinks
+
+
+
+ // const  onApprove =async (data, actions) => {
+  //   try {
+  //     // Capture the transaction
+
+  //     console.log("Under fetch component",data);
+  //     const host = process.env.React_App_host
+  //     const response = fetch(`${host}/v1/userlink/capturepaymentstatus`, {
+  //             method: "POST",
+  //             headers: {
+  //                 "Content-Type": "application/json",
+  //             },
+  //             body: JSON.stringify({
+  //                 orderID: data.orderID
+  //             })
+  //         });
+
+  //         const details = await actions.order.capture();
+  //         const result = await response.json();
+  //         console.log("Result", result);
+  //         alert("Transaction completed by:", details.payer.name.given_name);
+
+  //     // Optionally, redirect after success
+  //     // window.location.href = "/success";
+
+  //   } catch (error) {
+  //     console.error("Payment capture error:", error);
+  //     alert("Payment failed. Please try again.");
+  //   }
+  // };

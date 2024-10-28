@@ -5,6 +5,28 @@ import Linkcontext from "../contextApi/Linkcontext";
 import { useState } from "react";
 // const host = "https://linkly-backend-stg.herokuapp.com";
 const host= process.env.React_App_host
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Feedbackpopup = props => {
   const UserId = localStorage.getItem('userid');
   const Linkid= props.linkid
@@ -164,7 +186,7 @@ const Linkexhangepopup = props => {
     const input2 = document.getElementById("exampleFormControlInput3").value; 
     console.log(input1,input2);
     const email=acceptedlink.Email;
-    console.log(email);
+    console.log("Email is-->",email);
     const getemail = await fetch(`${host}/v1/userlink/email`, {
       method: "POST",
       headers: {
@@ -184,7 +206,21 @@ const Linkexhangepopup = props => {
       },
       body: JSON.stringify({Linkid,UserId, input1, input2 ,linkgiverid}),
     });
-    console.log(response);
+    console.log("Exchange response-->", response.status);
+    if(response.status===200){
+      const statusvalue="Submitted - Waiting for Approval (from Link Giver)";
+      const response = await fetch(`${host}/v1/userlink/update_status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        body: JSON.stringify({ Linkid, UserId,statusvalue  }),
+      });
+      // console.log("hi")
+      console.log("Status update-->",response);
+  
+    }
     props.handleClose();
 
 

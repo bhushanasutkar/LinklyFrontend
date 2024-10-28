@@ -58,7 +58,7 @@ const Links = () => {
             <img className="imageicon " style={{ marginTop: '4px', cursor: 'pointer' }} src="sort_icon.svg" alt="" />
             <select  style={{
                 height: '1.5rem',
-                width: '4rem',
+                width: '8rem',
                 border: 'aliceblue',
                 backgroundColor: '#f7f8ff',
                 borderRadius: '0px', marginTop: '0px', cursor: 'pointer'
